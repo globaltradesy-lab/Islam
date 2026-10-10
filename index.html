@@ -1,0 +1,2050 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#0b1021">
+    <meta name="description" content="من سيربح المليون حسنة — لعبة معلومات إسلامية ترفيهية مع لوحة متصدرين وتحدي يومي.">
+    <link rel="manifest" href="manifest.json">
+    <title>من سيربح المليون حسنة | النسخة الاحترافية</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #070b17;
+            --bg-2: #10182d;
+            --card: rgba(17, 27, 52, .88);
+            --card-2: rgba(26, 38, 70, .82);
+            --glass: rgba(255,255,255,.05);
+            --text: #fff;
+            --muted: #aab4cc;
+            --gold: #d4af37;
+            --gold-2: #f5e7a7;
+            --success: #22c55e;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --info: #38bdf8;
+            --border: rgba(212,175,55,.42);
+            --shadow: 0 20px 60px rgba(0,0,0,.35);
+            --radius: 24px;
+        }
+        body.light {
+            --bg: #edf2f7;
+            --bg-2: #dfe7ef;
+            --card: rgba(255,255,255,.92);
+            --card-2: rgba(248,250,252,.95);
+            --glass: rgba(0,0,0,.04);
+            --text: #152033;
+            --muted: #5e6a7d;
+            --gold: #a67c10;
+            --gold-2: #d4af37;
+            --border: rgba(166,124,16,.38);
+            --shadow: 0 20px 60px rgba(15,23,42,.14);
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            min-height: 100vh;
+            font-family: 'Cairo', sans-serif;
+            color: var(--text);
+            background:
+                radial-gradient(circle at 20% 10%, rgba(212,175,55,.12), transparent 28%),
+                radial-gradient(circle at 85% 30%, rgba(56,189,248,.08), transparent 26%),
+                radial-gradient(circle at 50% 100%, rgba(99,102,241,.08), transparent 35%),
+                linear-gradient(180deg, var(--bg-2), var(--bg));
+            overflow-x: hidden;
+            transition: background .3s ease, color .3s ease;
+        }
+        body.no-scroll { overflow: hidden; }
+        button, input { font: inherit; }
+        button { border: 0; }
+        button:focus-visible, input:focus-visible { outline: 3px solid rgba(56,189,248,.55); outline-offset: 2px; }
+        .shell { width: min(1100px, 100%); margin: 0 auto; padding: 18px 18px 40px; position: relative; z-index: 2; }
+        .topbar { display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:12px; }
+        .brand-mini { display:flex; align-items:center; gap:10px; font-weight:900; color:var(--gold); }
+        .brand-mark { width:42px; height:42px; display:grid; place-items:center; border:1px solid var(--border); border-radius:14px; background:var(--glass); box-shadow: var(--shadow); }
+        .top-actions { display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end; }
+        .icon-btn, .ghost-btn { color:var(--text); background:var(--glass); border:1px solid var(--border); cursor:pointer; transition:.22s; }
+        .icon-btn { width:44px; height:44px; border-radius:14px; display:grid; place-items:center; }
+        .ghost-btn { padding:10px 14px; border-radius:14px; font-weight:800; }
+        .icon-btn:hover, .ghost-btn:hover { transform:translateY(-2px); box-shadow:0 8px 20px rgba(0,0,0,.14); }
+        .hero { display:grid; gap:14px; margin-top:8px; }
+        .title-card { background:linear-gradient(135deg, rgba(212,175,55,.13), rgba(56,189,248,.06)); border:1px solid var(--border); border-radius:30px; padding:24px; box-shadow:var(--shadow); backdrop-filter: blur(12px); }
+        .title-row { display:flex; justify-content:space-between; align-items:end; gap:15px; flex-wrap:wrap; }
+        .title-card h1 { font-size:clamp(1.7rem, 4vw, 2.8rem); line-height:1.2; color:var(--gold); text-shadow:0 0 20px rgba(212,175,55,.18); }
+        .title-card p { color:var(--muted); margin-top:8px; }
+        .mode-badge { display:inline-flex; align-items:center; gap:7px; color:var(--gold-2); background:rgba(212,175,55,.1); border:1px solid var(--border); padding:8px 12px; border-radius:999px; font-weight:800; }
+        .status-row { display:grid; grid-template-columns:repeat(4, 1fr); gap:10px; }
+        .stat-card { background:var(--card); border:1px solid rgba(255,255,255,.07); border-radius:18px; padding:14px; box-shadow:var(--shadow); }
+        .stat-label { color:var(--muted); font-size:.82rem; }
+        .stat-value { margin-top:3px; font-size:1.15rem; font-weight:900; }
+        .progress-wrap { margin-top:4px; }
+        .progress-track { height:10px; background:rgba(128,128,128,.18); border-radius:999px; overflow:hidden; border:1px solid rgba(255,255,255,.06); }
+        .progress-fill { height:100%; width:0%; background:linear-gradient(90deg, var(--gold), #f4d65d, var(--gold)); transition:width .35s ease; }
+        .main-grid { display:grid; grid-template-columns:minmax(0, 1fr) 280px; gap:16px; margin-top:16px; }
+        .question-card, .side-card { background:var(--card); border:1px solid rgba(255,255,255,.07); border-radius:var(--radius); box-shadow:var(--shadow); backdrop-filter:blur(10px); }
+        .question-card { padding:22px; }
+        .question-meta { display:flex; justify-content:space-between; gap:10px; align-items:center; flex-wrap:wrap; margin-bottom:14px; }
+        .pill { display:inline-flex; gap:7px; align-items:center; padding:7px 11px; border-radius:999px; background:var(--glass); border:1px solid rgba(255,255,255,.08); color:var(--muted); font-size:.84rem; font-weight:800; }
+        .timer-pill { color:var(--gold); border-color:var(--border); min-width:102px; justify-content:center; }
+        .timer-pill.danger { color:var(--danger); border-color:rgba(239,68,68,.45); animation:pulse 1s infinite; }
+        .question-number { color:var(--muted); font-weight:800; }
+        .question-text { min-height:145px; display:grid; place-items:center; text-align:center; padding:24px 18px; background:linear-gradient(180deg, var(--card-2), rgba(0,0,0,.07)); border:1px solid var(--border); border-radius:22px; font-size:clamp(1.2rem, 2.3vw, 1.6rem); line-height:1.8; font-weight:900; }
+        .options { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:16px; }
+        .option { position:relative; min-height:70px; display:flex; align-items:center; gap:12px; text-align:right; padding:15px 18px; color:var(--text); background:linear-gradient(135deg, rgba(12,20,40,.88), rgba(32,46,82,.88)); border:1px solid var(--border); border-radius:20px; cursor:pointer; transition:.2s; }
+        body.light .option { background:linear-gradient(135deg, #fff, #f4f7fb); }
+        .option:hover:not(:disabled) { transform:translateY(-2px); border-color:var(--gold); box-shadow:0 10px 24px rgba(212,175,55,.12); }
+        .option:disabled { cursor:not-allowed; }
+        .option-letter { width:36px; height:36px; flex:0 0 36px; display:grid; place-items:center; border-radius:12px; background:rgba(212,175,55,.11); color:var(--gold); font-weight:900; }
+        .option.correct { background:linear-gradient(135deg, rgba(34,197,94,.95), rgba(22,163,74,.9)); border-color:#9be8b5; color:white; }
+        .option.correct .option-letter, .option.wrong .option-letter { background:rgba(255,255,255,.18); color:#fff; }
+        .option.wrong { background:linear-gradient(135deg, rgba(239,68,68,.95), rgba(190,24,93,.9)); border-color:#fecaca; color:white; }
+        .option.eliminated { opacity:.18; transform:scale(.98); pointer-events:none; }
+        .option.pending { background:linear-gradient(135deg, rgba(245,158,11,.95), rgba(217,119,6,.9)); color:white; }
+        .side-card { padding:16px; }
+        .side-card h3 { color:var(--gold); margin-bottom:12px; }
+        .lifelines { display:grid; gap:10px; }
+        .life-btn { text-align:right; padding:13px 14px; border-radius:16px; color:var(--text); background:var(--glass); border:1px solid var(--border); cursor:pointer; font-weight:900; transition:.2s; }
+        .life-btn:hover:not(:disabled) { transform:translateX(-2px); }
+        .life-btn:disabled { opacity:.34; cursor:not-allowed; filter:grayscale(1); }
+        .safe-box { margin-top:14px; padding:14px; border-radius:18px; background:rgba(212,175,55,.07); border:1px dashed var(--border); }
+        .safe-box strong { display:block; color:var(--gold); font-size:1.25rem; margin-top:4px; }
+        .shortcuts { margin-top:16px; color:var(--muted); font-size:.8rem; line-height:1.8; }
+        .bottom-actions { display:flex; gap:8px; flex-wrap:wrap; margin-top:14px; }
+        .bottom-actions .ghost-btn { flex:1; min-width:140px; }
+        .modal { position:fixed; inset:0; background:rgba(2,6,23,.74); backdrop-filter:blur(10px); z-index:1000; display:none; padding:18px; overflow:auto; }
+        .modal.show { display:grid; place-items:center; }
+        .modal-card { width:min(680px, 100%); background:var(--card); border:1px solid var(--border); border-radius:26px; box-shadow:var(--shadow); padding:24px; animation:pop .25s ease; }
+        .modal-card.wide { width:min(900px,100%); }
+        .modal-header { display:flex; justify-content:space-between; align-items:center; gap:10px; }
+        .modal-title { color:var(--gold); font-size:1.4rem; font-weight:900; }
+        .close-btn { width:40px; height:40px; border-radius:12px; background:var(--glass); color:var(--text); cursor:pointer; border:1px solid var(--border); }
+        .form { display:grid; gap:11px; margin-top:18px; }
+        .input { width:100%; border-radius:14px; border:1px solid var(--border); background:var(--glass); color:var(--text); padding:13px 14px; }
+        .btn-primary { width:100%; padding:13px 16px; border-radius:15px; background:linear-gradient(135deg, #d4af37, #f0d26c); color:#111; font-weight:900; cursor:pointer; }
+        .btn-secondary { width:100%; padding:12px 16px; border-radius:15px; background:var(--glass); color:var(--text); border:1px solid var(--border); cursor:pointer; font-weight:900; }
+        .welcome-actions { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:18px; }
+        .result-score { text-align:center; font-size:clamp(2rem,6vw,3.4rem); font-weight:900; color:var(--gold); margin:12px 0; }
+        .result-sub { text-align:center; color:var(--muted); }
+        .result-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:18px; }
+        .result-chip { padding:13px; border-radius:15px; background:var(--glass); border:1px solid rgba(255,255,255,.07); text-align:center; }
+        .result-chip strong { display:block; color:var(--gold); font-size:1.1rem; margin-top:3px; }
+        .share-actions { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:15px; }
+        .share-btn { padding:12px 14px; border-radius:14px; color:white; cursor:pointer; font-weight:900; }
+        .wa { background:#25d366; } .fb { background:#1877f2; }
+        .leaderboard-tabs { display:flex; gap:8px; flex-wrap:wrap; margin:16px 0; }
+        .tab { padding:9px 13px; border-radius:999px; background:var(--glass); border:1px solid var(--border); color:var(--muted); cursor:pointer; font-weight:900; }
+        .tab.active { background:var(--gold); color:#111; border-color:var(--gold); }
+        .board { list-style:none; display:grid; gap:8px; max-height:430px; overflow:auto; }
+        .board-item { display:grid; grid-template-columns:52px 1fr auto; gap:10px; align-items:center; padding:11px 12px; border-radius:15px; background:var(--glass); border:1px solid rgba(255,255,255,.06); }
+        .rank { color:var(--gold); font-weight:900; }
+        .board-name { min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+        .board-score { color:var(--gold); font-weight:900; white-space:nowrap; }
+        .profile { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin-top:15px; }
+        .profile-card { padding:14px; border-radius:15px; background:var(--glass); border:1px solid rgba(255,255,255,.06); }
+        .profile-card span { display:block; color:var(--muted); font-size:.82rem; }
+        .profile-card strong { display:block; font-size:1.35rem; margin-top:3px; color:var(--gold); }
+        .achievement-list { display:grid; gap:8px; margin-top:14px; }
+        .achievement { display:flex; justify-content:space-between; align-items:center; padding:10px 12px; border-radius:14px; background:var(--glass); border:1px solid rgba(255,255,255,.06); }
+        .achievement.locked { opacity:.35; }
+        .toast { position:fixed; left:50%; bottom:22px; transform:translate(-50%, 18px); z-index:2000; padding:12px 16px; border-radius:999px; background:#111827; color:#fff; border:1px solid rgba(255,255,255,.1); box-shadow:var(--shadow); opacity:0; pointer-events:none; transition:.25s; max-width:min(92vw,680px); text-align:center; }
+        .toast.show { opacity:1; transform:translate(-50%,0); }
+        .confetti-layer { position:fixed; inset:0; pointer-events:none; z-index:1500; overflow:hidden; display:none; }
+        .confetti { position:absolute; width:9px; height:14px; top:-20px; animation:fall linear forwards; }
+        .audience-chart { display:grid; gap:10px; margin-top:15px; }
+        .bar-row { display:grid; grid-template-columns:34px 1fr 48px; gap:8px; align-items:center; }
+        .bar-track { height:14px; border-radius:999px; background:rgba(128,128,128,.2); overflow:hidden; }
+        .bar { height:100%; background:linear-gradient(90deg, var(--gold), #f5d96b); width:0; transition:width .7s ease; }
+        .empty { padding:25px; text-align:center; color:var(--muted); }
+        .small { font-size:.8rem; color:var(--muted); }
+        .danger-text { color:var(--danger); }
+        .success-text { color:var(--success); }
+        .kbd { display:inline-grid; place-items:center; min-width:24px; padding:1px 5px; border-radius:6px; background:var(--glass); border:1px solid var(--border); color:var(--text); }
+        @keyframes pop { from {opacity:0; transform:translateY(10px) scale(.98)} to {opacity:1; transform:translateY(0) scale(1)} }
+        @keyframes pulse { 50% { opacity:.48; } }
+        @keyframes fall { to { transform:translateY(110vh) rotate(720deg); opacity:0; } }
+        @media (max-width:900px) { .main-grid { grid-template-columns:1fr; } .side-card { order:2; } .lifelines { grid-template-columns:repeat(4,1fr); } }
+        @media (max-width:700px) { .status-row { grid-template-columns:1fr 1fr; } .options { grid-template-columns:1fr; } .result-grid { grid-template-columns:1fr 1fr 1fr; } .welcome-actions, .share-actions { grid-template-columns:1fr; } .lifelines { grid-template-columns:1fr 1fr; } }
+        @media (max-width:460px) { .shell { padding-inline:10px; } .title-card, .question-card, .side-card, .modal-card { border-radius:20px; } .result-grid, .profile { grid-template-columns:1fr 1fr; } .topbar { align-items:flex-start; } .brand-mini span { display:none; } }
+        @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation:none !important; transition:none !important; scroll-behavior:auto !important; } }
+    </style>
+</head>
+<body>
+<div class="shell">
+    <header class="topbar">
+        <div class="brand-mini"><div class="brand-mark">👑</div><span>من سيربح المليون حسنة</span></div>
+        <div class="top-actions">
+            <button class="icon-btn" id="soundBtn" title="الصوت" aria-label="الصوت">🔊</button>
+            <button class="icon-btn" id="themeBtn" title="تبديل المظهر" aria-label="تبديل المظهر">🌓</button>
+            <button class="ghost-btn" id="dailyTopBtn">🔥 تحدي اليوم</button>
+            <button class="ghost-btn" id="leaderboardTopBtn">🏆 المتصدرون</button>
+            <button class="ghost-btn" id="profileTopBtn">👤 حسابي</button>
+        </div>
+    </header>
+
+    <main class="hero">
+        <section class="title-card">
+            <div class="title-row">
+                <div>
+                    <h1>من سيربح المليون حسنة</h1>
+                    <p>نسخة احترافية مع مؤقت، وسائل مساعدة، إنجازات، XP، تحدي يومي ولوحة متصدرين.</p>
+                </div>
+                <div class="mode-badge" id="modeBadge">🎲 لعبة عشوائية</div>
+            </div>
+            <div class="progress-wrap" aria-label="تقدم اللعبة"><div class="progress-track"><div class="progress-fill" id="progressFill"></div></div></div>
+        </section>
+
+        <section class="status-row">
+            <div class="stat-card"><div class="stat-label">اللاعب</div><div class="stat-value" id="playerNameStat">-</div></div>
+            <div class="stat-card"><div class="stat-label">الرصيد</div><div class="stat-value" id="scoreStat">0</div></div>
+            <div class="stat-card"><div class="stat-label">المضمون</div><div class="stat-value" id="safeStat">0</div></div>
+            <div class="stat-card"><div class="stat-label">السلسلة</div><div class="stat-value" id="streakStat">0 🔥</div></div>
+        </section>
+
+        <section class="main-grid">
+            <div class="question-card">
+                <div class="question-meta">
+                    <div class="question-number" id="questionNumber">السؤال 1 / 10</div>
+                    <div class="pill" id="difficultyPill">سهل</div>
+                    <div class="pill timer-pill" id="timerPill">⏱ 00:30</div>
+                </div>
+                <div class="question-text" id="questionText">ابدأ اللعبة من القائمة للبدء.</div>
+                <div class="options" id="options"></div>
+                <div class="bottom-actions">
+                    <button class="ghost-btn" id="newGameBtn">🎮 لعبة جديدة</button>
+                    <button class="ghost-btn" id="logoutBtn">↪ تسجيل خروج</button>
+                </div>
+            </div>
+
+            <aside class="side-card">
+                <h3>🛠 وسائل المساعدة</h3>
+                <div class="lifelines">
+                    <button class="life-btn" id="life5050">⚖️ حذف إجابتين <span class="small">(M)</span></button>
+                    <button class="life-btn" id="lifeChange">🔄 تغيير السؤال <span class="small">(C)</span></button>
+                    <button class="life-btn" id="lifeHint">💡 تلميح <span class="small">(H)</span></button>
+                    <button class="life-btn" id="lifeAudience">👥 اسأل الجمهور <span class="small">(A)</span></button>
+                </div>
+                <div class="safe-box">المستوى المضمون<strong id="safeText">0 حسنة</strong><div class="small">أمان اللعبة يتحسن كلما تقدمت.</div></div>
+                <div class="shortcuts">اختصارات: <span class="kbd">1</span> <span class="kbd">2</span> <span class="kbd">3</span> <span class="kbd">4</span> للإجابات — <span class="kbd">M</span> <span class="kbd">C</span> <span class="kbd">H</span> <span class="kbd">A</span> للمساعدات.</div>
+            </aside>
+        </section>
+    </main>
+</div>
+
+<div class="modal show" id="authModal">
+    <div class="modal-card">
+        <div class="modal-header"><div class="modal-title">👤 تسجيل اللاعب</div></div>
+        <div class="small" style="margin-top:8px">استخدم اسماً فريداً وكلمة مرور لحفظ النتائج والإنجازات.</div>
+        <div class="form">
+            <input class="input" id="usernameInput" maxlength="24" autocomplete="username" placeholder="اسم اللاعب">
+            <input class="input" id="passwordInput" type="password" maxlength="64" autocomplete="current-password" placeholder="كلمة المرور">
+            <button class="btn-primary" id="authBtn">🚀 دخول / إنشاء حساب</button>
+            <div class="small">يمكنك اللعب محلياً حتى لو تعذر الاتصال بالسحابة، وستُحفظ النتيجة للمزامنة لاحقاً.</div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="welcomeModal">
+    <div class="modal-card">
+        <div class="modal-header"><div class="modal-title">مرحباً <span id="welcomeName">يا لاعب</span> 👑</div><button class="close-btn" data-close="welcomeModal">×</button></div>
+        <p class="small" style="margin-top:8px">اختر نمط اللعب.</p>
+        <div class="welcome-actions">
+            <button class="btn-primary" id="startClassicBtn">🎲 لعبة عشوائية</button>
+            <button class="btn-primary" id="startDailyBtn">🔥 تحدي اليوم</button>
+        </div>
+        <div class="profile" id="miniProfile"></div>
+    </div>
+</div>
+
+<div class="modal" id="resultsModal">
+    <div class="modal-card">
+        <div class="modal-header"><div class="modal-title" id="resultTitle">انتهت اللعبة!</div><button class="close-btn" data-close="resultsModal">×</button></div>
+        <div class="result-score" id="finalScore">0</div>
+        <div class="result-sub" id="resultSub">حسنة</div>
+        <div class="result-grid">
+            <div class="result-chip">✅ صحيحة<strong id="resultCorrect">0</strong></div>
+            <div class="result-chip">🔥 سلسلة<strong id="resultStreak">0</strong></div>
+            <div class="result-chip">⭐ XP<strong id="resultXP">0</strong></div>
+        </div>
+        <div id="resultAchievements" class="achievement-list"></div>
+        <div class="share-actions"><button class="share-btn wa" id="shareWhatsAppBtn">📱 واتساب</button><button class="share-btn fb" id="shareFacebookBtn">🌐 فيسبوك</button></div>
+        <div class="welcome-actions" style="margin-top:10px"><button class="btn-primary" id="playAgainBtn">🔄 لعب مرة أخرى</button><button class="btn-secondary" id="viewLeaderboardBtn">🏆 عرض المتصدرين</button></div>
+        <div class="small" id="saveStatus" style="margin-top:10px;text-align:center"></div>
+    </div>
+</div>
+
+<div class="modal" id="leaderboardModal">
+    <div class="modal-card wide">
+        <div class="modal-header"><div class="modal-title">🏆 لوحة المتصدرين</div><button class="close-btn" data-close="leaderboardModal">×</button></div>
+        <div class="leaderboard-tabs">
+            <button class="tab active" data-board="best">⭐ أفضل لعبة</button>
+            <button class="tab" data-board="today">🔥 اليوم</button>
+            <button class="tab" data-board="total">📈 التراكمي</button>
+        </div>
+        <ul class="board" id="leaderboardList"></ul>
+    </div>
+</div>
+
+<div class="modal" id="profileModal">
+    <div class="modal-card wide">
+        <div class="modal-header"><div class="modal-title">👤 ملف اللاعب</div><button class="close-btn" data-close="profileModal">×</button></div>
+        <div id="profileContent"></div>
+        <button class="btn-secondary" id="profileLogoutBtn" style="margin-top:14px">↪ تسجيل الخروج وتغيير اللاعب</button>
+    </div>
+</div>
+
+<div class="modal" id="audienceModal">
+    <div class="modal-card">
+        <div class="modal-header"><div class="modal-title">👥 رأي الجمهور</div><button class="close-btn" data-close="audienceModal">×</button></div>
+        <div class="small" style="margin-top:8px">توقع تقريبي للجمهور لهذه الجولة.</div>
+        <div class="audience-chart" id="audienceChart"></div>
+    </div>
+</div>
+
+<div class="modal" id="resumeModal">
+    <div class="modal-card">
+        <div class="modal-header"><div class="modal-title">⏯ استئناف اللعبة</div></div>
+        <p class="small" style="margin-top:8px">تم العثور على لعبة غير مكتملة. هل تريد المتابعة؟</p>
+        <div class="welcome-actions"><button class="btn-primary" id="resumeBtn">▶ متابعة</button><button class="btn-secondary" id="discardResumeBtn">🗑 بدء لعبة جديدة</button></div>
+    </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<div class="confetti-layer" id="confettiLayer"></div>
+
+<script>
+const easyQuestions = [
+    [
+        "ما أطول سورة في القرآن الكريم؟",
+        "سورة البقرة",
+        "سورة آل عمران",
+        "سورة النساء",
+        "سورة المائدة"
+    ],
+    [
+        "ما السورة التي تبدأ بها المصاحف؟",
+        "سورة الفاتحة",
+        "سورة البقرة",
+        "سورة الإخلاص",
+        "سورة الناس"
+    ],
+    [
+        "كم عدد سور القرآن الكريم في المصحف المتداول؟",
+        "114 سورة",
+        "110 سور",
+        "112 سورة",
+        "120 سورة"
+    ],
+    [
+        "إلى كم جزءًا قُسّم القرآن في المصحف المتداول لتيسير القراءة؟",
+        "30 جزءًا",
+        "20 جزءًا",
+        "25 جزءًا",
+        "40 جزءًا"
+    ],
+    [
+        "ما السورة التي تختم بها المصاحف؟",
+        "سورة الناس",
+        "سورة الفلق",
+        "سورة الإخلاص",
+        "سورة الفاتحة"
+    ],
+    [
+        "ما السورة التي لا تبدأ بالبسملة في المصحف؟",
+        "سورة التوبة",
+        "سورة النمل",
+        "سورة الأنفال",
+        "سورة يونس"
+    ],
+    [
+        "في أي سورة وردت البسملة داخل آية على لسان الهدهد في رسالة سليمان؟",
+        "سورة النمل",
+        "سورة النحل",
+        "سورة سبأ",
+        "سورة القصص"
+    ],
+    [
+        "في أي سورة تقع آية الكرسي؟",
+        "سورة البقرة",
+        "سورة آل عمران",
+        "سورة النساء",
+        "سورة المائدة"
+    ],
+    [
+        "ما السورة التي تبدأ بقول الله تعالى: «قل هو الله أحد»؟",
+        "سورة الإخلاص",
+        "سورة الفلق",
+        "سورة الناس",
+        "سورة الكافرون"
+    ],
+    [
+        "ما السورة التي سُمّيت باسم ليلة نزول القرآن التي هي خير من ألف شهر؟",
+        "سورة القدر",
+        "سورة الدخان",
+        "سورة الإسراء",
+        "سورة المزمل"
+    ],
+    [
+        "في أي شهر يذكر القرآن أنه أُنزل فيه القرآن؟",
+        "شهر رمضان",
+        "شهر محرم",
+        "شهر رجب",
+        "شهر شوال"
+    ],
+    [
+        "كم عدد الأشهر عند الله في السنة وفق سورة التوبة؟",
+        "اثنا عشر شهرًا",
+        "عشرة أشهر",
+        "أحد عشر شهرًا",
+        "ثلاثة عشر شهرًا"
+    ],
+    [
+        "في أي سورة وردت قصة أصحاب الفيل؟",
+        "سورة الفيل",
+        "سورة قريش",
+        "سورة الماعون",
+        "سورة الهمزة"
+    ],
+    [
+        "أي سورة تحمل اسم نبي وتروي قصته بتفصيل متتابع؟",
+        "سورة يوسف",
+        "سورة هود",
+        "سورة إبراهيم",
+        "سورة محمد"
+    ],
+    [
+        "ما السورة التي تحمل اسم والدة عيسى عليه السلام؟",
+        "سورة مريم",
+        "سورة النساء",
+        "سورة النور",
+        "سورة القصص"
+    ],
+    [
+        "ما السورة التي تحمل اسم حشرة تصنع العسل؟",
+        "سورة النحل",
+        "سورة النمل",
+        "سورة العنكبوت",
+        "سورة البقرة"
+    ],
+    [
+        "ما السورة التي تحمل اسم معدن؟",
+        "سورة الحديد",
+        "سورة الرعد",
+        "سورة الحجر",
+        "سورة الفرقان"
+    ],
+    [
+        "ما السورة التي تحمل اسم يوم الجمعة؟",
+        "سورة الجمعة",
+        "سورة المنافقون",
+        "سورة الصف",
+        "سورة التغابن"
+    ],
+    [
+        "في أي سورة وردت قصة أصحاب الكهف؟",
+        "سورة الكهف",
+        "سورة الإسراء",
+        "سورة مريم",
+        "سورة طه"
+    ],
+    [
+        "ما اسم السورة التي ورد فيها ذكر العنكبوت في مثل بيت العنكبوت؟",
+        "سورة العنكبوت",
+        "سورة النمل",
+        "سورة النحل",
+        "سورة الفيل"
+    ],
+    [
+        "أي سورة ورد فيها اسم «لقمان»؟",
+        "سورة لقمان",
+        "سورة إبراهيم",
+        "سورة طه",
+        "سورة الأحقاف"
+    ],
+    [
+        "ما اللغة التي وصف القرآن نفسه بأنه أُنزل بها في قوله تعالى «إنا أنزلناه قرآنًا عربيًا»؟",
+        "اللغة العربية",
+        "اللغة العبرية",
+        "اللغة السريانية",
+        "اللغة الآرامية"
+    ],
+    [
+        "ما السورة التي ورد في اسمها ذكر النمل؟",
+        "سورة النمل",
+        "سورة النحل",
+        "سورة العنكبوت",
+        "سورة البقرة"
+    ],
+    [
+        "ما السورة التي ورد في اسمها ذكر البقرة؟",
+        "سورة البقرة",
+        "سورة الفيل",
+        "سورة الأنعام",
+        "سورة المائدة"
+    ],
+    [
+        "أي سورة تتضمن الآية «إن مع العسر يسرًا»؟",
+        "سورة الشرح",
+        "سورة الضحى",
+        "سورة العصر",
+        "سورة البلد"
+    ],
+    [
+        "أي سورة تبدأ بقوله تعالى «والعصر»؟",
+        "سورة العصر",
+        "سورة الفجر",
+        "سورة الليل",
+        "سورة الضحى"
+    ],
+    [
+        "ما السورة التي تبدأ بقوله تعالى «اقرأ باسم ربك الذي خلق»؟",
+        "سورة العلق",
+        "سورة القلم",
+        "سورة المزمل",
+        "سورة المدثر"
+    ],
+    [
+        "أي سورة وردت فيها آية «لا إكراه في الدين»؟",
+        "سورة البقرة",
+        "سورة آل عمران",
+        "سورة التوبة",
+        "سورة الكهف"
+    ],
+    [
+        "أي سورة ورد فيها الأمر «وقل رب زدني علمًا»؟",
+        "سورة طه",
+        "سورة مريم",
+        "سورة يوسف",
+        "سورة الأنبياء"
+    ],
+    [
+        "ما السورة التي تتضمن آية الدَّين، أطول آية في القرآن؟",
+        "سورة البقرة",
+        "سورة النساء",
+        "سورة المائدة",
+        "سورة التوبة"
+    ],
+    [
+        "أي سورة فيها ذكر أصحاب الأخدود؟",
+        "سورة البروج",
+        "سورة الطارق",
+        "سورة الغاشية",
+        "سورة الانشقاق"
+    ],
+    [
+        "ما السورة التي ورد فيها «تبت يدا أبي لهب»؟",
+        "سورة المسد",
+        "سورة الكافرون",
+        "سورة الهمزة",
+        "سورة قريش"
+    ],
+    [
+        "من النبي الذي صنع السفينة بأمر الله؟",
+        "نوح عليه السلام",
+        "هود عليه السلام",
+        "صالح عليه السلام",
+        "لوط عليه السلام"
+    ],
+    [
+        "من النبي الذي أُلقي في النار فجعلها الله بردًا وسلامًا؟",
+        "إبراهيم عليه السلام",
+        "موسى عليه السلام",
+        "عيسى عليه السلام",
+        "يونس عليه السلام"
+    ],
+    [
+        "من النبي الذي ابتلعه الحوت ثم نادى ربه في الظلمات؟",
+        "يونس عليه السلام",
+        "أيوب عليه السلام",
+        "زكريا عليه السلام",
+        "إلياس عليه السلام"
+    ],
+    [
+        "من النبي الذي رأى في المنام أحد عشر كوكبًا والشمس والقمر؟",
+        "يوسف عليه السلام",
+        "إبراهيم عليه السلام",
+        "سليمان عليه السلام",
+        "داود عليه السلام"
+    ],
+    [
+        "من النبي الذي كلّمه الله تكليمًا؟",
+        "موسى عليه السلام",
+        "نوح عليه السلام",
+        "يوسف عليه السلام",
+        "هارون عليه السلام"
+    ],
+    [
+        "من النبي الذي انشق البحر له بعصاه بإذن الله؟",
+        "موسى عليه السلام",
+        "إبراهيم عليه السلام",
+        "داود عليه السلام",
+        "عيسى عليه السلام"
+    ],
+    [
+        "من النبي الذي آتاه الله الزبور؟",
+        "داود عليه السلام",
+        "موسى عليه السلام",
+        "عيسى عليه السلام",
+        "إبراهيم عليه السلام"
+    ],
+    [
+        "ما الكتاب الذي أُنزل على موسى عليه السلام كما في القرآن؟",
+        "التوراة",
+        "الزبور",
+        "الإنجيل",
+        "القرآن الكريم"
+    ],
+    [
+        "ما الكتاب الذي أُنزل على عيسى عليه السلام كما في القرآن؟",
+        "الإنجيل",
+        "التوراة",
+        "الزبور",
+        "صحف إبراهيم"
+    ],
+    [
+        "من النبي الذي علّمه الله منطق الطير؟",
+        "سليمان عليه السلام",
+        "داود عليه السلام",
+        "يوسف عليه السلام",
+        "زكريا عليه السلام"
+    ],
+    [
+        "ما الطائر الذي تفقده سليمان عليه السلام في قصة مملكة سبأ؟",
+        "الهدهد",
+        "الغراب",
+        "النسر",
+        "الحمامة"
+    ],
+    [
+        "من النبي الذي ألان الله له الحديد؟",
+        "داود عليه السلام",
+        "سليمان عليه السلام",
+        "موسى عليه السلام",
+        "إدريس عليه السلام"
+    ],
+    [
+        "من والد يوسف عليه السلام؟",
+        "يعقوب عليه السلام",
+        "إسحاق عليه السلام",
+        "إبراهيم عليه السلام",
+        "زكريا عليه السلام"
+    ],
+    [
+        "من النبي الذي أرسل إلى قوم عاد؟",
+        "هود عليه السلام",
+        "صالح عليه السلام",
+        "شعيب عليه السلام",
+        "لوط عليه السلام"
+    ],
+    [
+        "من النبي الذي أرسل إلى ثمود؟",
+        "صالح عليه السلام",
+        "هود عليه السلام",
+        "شعيب عليه السلام",
+        "إسماعيل عليه السلام"
+    ],
+    [
+        "من النبي الذي أرسل إلى أهل مدين؟",
+        "شعيب عليه السلام",
+        "هود عليه السلام",
+        "صالح عليه السلام",
+        "يونس عليه السلام"
+    ],
+    [
+        "من النبي الذي أرسله الله إلى قوم لوط؟",
+        "لوط عليه السلام",
+        "هود عليه السلام",
+        "شعيب عليه السلام",
+        "إسحاق عليه السلام"
+    ],
+    [
+        "من أمّ عيسى عليه السلام؟",
+        "مريم عليها السلام",
+        "آسية بنت مزاحم",
+        "هاجر",
+        "سارة"
+    ],
+    [
+        "من النبي الذي بُشّر بغلام اسمه يحيى؟",
+        "زكريا عليه السلام",
+        "يعقوب عليه السلام",
+        "إبراهيم عليه السلام",
+        "نوح عليه السلام"
+    ],
+    [
+        "من الذي ساعد إبراهيم عليه السلام في رفع قواعد الكعبة؟",
+        "إسماعيل عليه السلام",
+        "إسحاق عليه السلام",
+        "يعقوب عليه السلام",
+        "لوط عليه السلام"
+    ],
+    [
+        "ما الحيوان الذي كان مع أصحاب الكهف بحسب القرآن؟",
+        "كلب",
+        "حصان",
+        "جمل",
+        "حمامة"
+    ],
+    [
+        "كم سنة ذكر القرآن أن أصحاب الكهف لبثوا، مع إضافة تسع؟",
+        "ثلاثمائة وتسع سنوات",
+        "ثلاثمائة سنة فقط",
+        "مائتا سنة",
+        "أربعمائة سنة"
+    ],
+    [
+        "من الرجل الذي خسف الله به الأرض بسبب بطره كما في سورة القصص؟",
+        "قارون",
+        "هامان",
+        "جالوت",
+        "السامري"
+    ],
+    [
+        "من النبي الذي أيده الله بمعجزات منها إبراء الأكمه والأبرص بإذنه؟",
+        "عيسى عليه السلام",
+        "موسى عليه السلام",
+        "داود عليه السلام",
+        "يوسف عليه السلام"
+    ],
+    [
+        "من النبي الذي أُلقي وهو رضيع في اليم داخل تابوت؟",
+        "موسى عليه السلام",
+        "عيسى عليه السلام",
+        "يحيى عليه السلام",
+        "إسماعيل عليه السلام"
+    ],
+    [
+        "من النبي الذي قال: «أني مسني الضر وأنت أرحم الراحمين»؟",
+        "أيوب عليه السلام",
+        "يونس عليه السلام",
+        "يعقوب عليه السلام",
+        "زكريا عليه السلام"
+    ],
+    [
+        "ما الذي صنعه داود عليه السلام من الحديد بإذن الله؟",
+        "الدروع",
+        "السفن",
+        "الأقواس فقط",
+        "الأواني"
+    ],
+    [
+        "من الذي أخبر سليمان عليه السلام بخبر قوم سبأ؟",
+        "الهدهد",
+        "النملة",
+        "الغراب",
+        "الحمامة"
+    ],
+    [
+        "من النبي الذي رفعه الله إليه ولم يذكر القرآن أنه قُتل أو صُلب؟",
+        "عيسى عليه السلام",
+        "يحيى عليه السلام",
+        "زكريا عليه السلام",
+        "إلياس عليه السلام"
+    ],
+    [
+        "كم عدد أركان الإسلام الواردة في حديث ابن عمر؟",
+        "خمسة",
+        "أربعة",
+        "ستة",
+        "سبعة"
+    ],
+    [
+        "كم عدد أركان الإيمان المذكورة في حديث جبريل؟",
+        "ستة",
+        "خمسة",
+        "أربعة",
+        "سبعة"
+    ],
+    [
+        "ما الشهر الذي يصومه المسلمون فرضًا؟",
+        "رمضان",
+        "شعبان",
+        "محرم",
+        "رجب"
+    ],
+    [
+        "إلى أين يتجه المسلمون في الصلاة؟",
+        "المسجد الحرام",
+        "المسجد الأقصى",
+        "المسجد النبوي",
+        "مسجد قباء"
+    ],
+    [
+        "كم صنفًا ذكر القرآن لمستحقي الزكاة في سورة التوبة؟",
+        "ثمانية أصناف",
+        "خمسة أصناف",
+        "ستة أصناف",
+        "عشرة أصناف"
+    ],
+    [
+        "في أي سورة ورد الأمر بالسعي إلى صلاة الجمعة عند النداء؟",
+        "سورة الجمعة",
+        "سورة المنافقون",
+        "سورة الصف",
+        "سورة التغابن"
+    ],
+    [
+        "أي عبادة ارتبطت في القرآن بعبارة «فمن شهد منكم الشهر فليصمه»؟",
+        "صيام رمضان",
+        "الحج",
+        "الزكاة",
+        "الاعتكاف"
+    ],
+    [
+        "ما العبادة التي أُمر القادرون بأدائها إلى البيت الحرام؟",
+        "الحج",
+        "العمرة فقط",
+        "الاعتكاف",
+        "صلاة الجمعة"
+    ],
+    [
+        "كم عدد الأشهر الحرم بحسب الآية 36 من سورة التوبة؟",
+        "أربعة",
+        "ثلاثة",
+        "خمسة",
+        "ستة"
+    ],
+    [
+        "ما الذي يفعله المريض أو المسافر في رمضان بحسب آية الصيام؟",
+        "يقضي أيامًا من أيام أُخر",
+        "لا يصوم أبدًا ولا يقضي",
+        "يدفع الزكاة بدلًا عن كل يوم في جميع الأحوال",
+        "يصوم يومين عن كل يوم"
+    ],
+    [
+        "أي عمل من أركان الإسلام يأتي بعد الشهادتين في حديث ابن عمر؟",
+        "إقامة الصلاة",
+        "الحج",
+        "صيام رمضان",
+        "إيتاء الزكاة"
+    ],
+    [
+        "ما الصلاة التي يجتمع المسلمون لها أسبوعيًا يوم الجمعة؟",
+        "صلاة الجمعة",
+        "صلاة العيد",
+        "صلاة الاستسقاء",
+        "صلاة الوتر"
+    ],
+    [
+        "أي شهر هجري يأتي بعد رمضان مباشرة؟",
+        "شوال",
+        "ذو القعدة",
+        "شعبان",
+        "محرم"
+    ],
+    [
+        "أي موضع من البدن يجب غسله في الوضوء كما ورد في آية الوضوء؟",
+        "الوجه",
+        "الكتف",
+        "الصدر",
+        "الظهر"
+    ],
+    [
+        "أي عبادة تسبقها في آية المائدة أوامر غسل الوجه واليدين ومسح الرأس وغسل الرجلين؟",
+        "الوضوء للصلاة",
+        "الطواف فقط",
+        "الصيام",
+        "الاعتكاف"
+    ],
+    [
+        "ما الحديث الذي يبدأ به صحيح البخاري ويقرر أن الأعمال بالنيات؟",
+        "إنما الأعمال بالنيات",
+        "الدين النصيحة",
+        "المسلم من سلم المسلمون من لسانه ويده",
+        "لا تغضب"
+    ],
+    [
+        "بحسب حديث صحيح، ما الذي ينبغي فعله عند الإيمان بالله واليوم الآخر: قول الخير أم كثرة الكلام؟",
+        "قول الخير أو الصمت",
+        "الكلام في كل حال",
+        "الجدال دائمًا",
+        "رفع الصوت"
+    ],
+    [
+        "من هو القوي بحسب الحديث الصحيح؟",
+        "الذي يملك نفسه عند الغضب",
+        "الذي يغلب الناس في المصارعة",
+        "الذي يرفع صوته",
+        "الذي ينتقم سريعًا"
+    ],
+    [
+        "أي خُلُق عُدَّ شعبة من الإيمان في صحيح مسلم؟",
+        "الحياء",
+        "التفاخر",
+        "الغضب",
+        "السخرية"
+    ],
+    [
+        "ما العمل الذي وصفه الحديث بأنه أدنى شعب الإيمان؟",
+        "إماطة الأذى عن الطريق",
+        "كثرة الطعام",
+        "السفر",
+        "الابتعاد عن الناس"
+    ],
+    [
+        "ماذا أوصى النبي ﷺ بشأن الجار والضيف والكلام في الحديث الصحيح؟",
+        "عدم إيذاء الجار وإكرام الضيف وقول الخير أو الصمت",
+        "تقديم الضيف على كل واجب",
+        "ترك زيارة الجيران دائمًا",
+        "الكلام ولو كان مؤذيًا"
+    ],
+    [
+        "ما أفضل عمل عند الله بحسب حديث عائشة في صحيح البخاري؟",
+        "أدومه وإن قل",
+        "أكثره مرة واحدة",
+        "ما كان شاقًا ولو انقطع",
+        "ما يراه الناس فقط"
+    ],
+    [
+        "ما أثر الرحمة بالأطفال في الحديث الصحيح؟",
+        "من لا يرحم لا يُرحم",
+        "الرحمة ضعف",
+        "الرحمة خاصة بالكبار",
+        "لا علاقة للرحمة بالإيمان"
+    ],
+    [
+        "ما العبارة الواردة في صحيح البخاري عن تعلم القرآن وتعليمه؟",
+        "خيركم من تعلم القرآن وعلمه",
+        "خيركم أكثرهم مالًا",
+        "خيركم أكثرهم سفرًا",
+        "خيركم أكثرهم كلامًا"
+    ],
+    [
+        "ما الذي يدل عليه حديث «المسلم من سلم المسلمون من لسانه ويده»؟",
+        "كف الأذى عن الناس",
+        "التفاخر بالنسب",
+        "الانتصار في الجدل",
+        "الانعزال عن الجميع"
+    ],
+    [
+        "ما الذي كان بداية الوحي إلى النبي ﷺ قبل مجيء الملك إليه في غار حراء؟",
+        "الرؤيا الصادقة",
+        "رسالة مكتوبة من ملك",
+        "نزول القرآن كاملًا دفعة واحدة",
+        "رؤية قافلة في الطريق"
+    ],
+    [
+        "أي عبارة تُكمل الحديث الصحيح: «لا يؤمن أحدكم حتى يحب لأخيه...»؟",
+        "ما يحب لنفسه",
+        "ما يملكه هو",
+        "ما يفضله الناس",
+        "ما يوافق رأيه دائمًا"
+    ],
+    [
+        "ما المقصود بالإحسان في حديث جبريل؟",
+        "أن تعبد الله كأنك تراه، فإن لم تكن تراه فإنه يراك",
+        "الإكثار من المال",
+        "ترك العمل والتفرغ للكلام",
+        "أن يراك الناس في العبادة"
+    ],
+    [
+        "إلى كم شعبة وصف الحديث الصحيح الإيمان تقريبًا؟",
+        "بضع وسبعون شعبة",
+        "عشر شعب",
+        "ثلاثون شعبة بالضبط",
+        "مائة شعبة بالضبط"
+    ],
+    [
+        "ما العمل الذي لا يكون في شيء إلا زانه بحسب حديث صحيح في مسلم؟",
+        "الرفق",
+        "العنف",
+        "التعجل",
+        "الخصومة"
+    ],
+    [
+        "من والد النبي محمد ﷺ؟",
+        "عبد الله بن عبد المطلب",
+        "أبو طالب",
+        "عبد المطلب",
+        "حمزة بن عبد المطلب"
+    ],
+    [
+        "من والدة النبي محمد ﷺ؟",
+        "آمنة بنت وهب",
+        "حليمة السعدية",
+        "خديجة بنت خويلد",
+        "فاطمة بنت أسد"
+    ],
+    [
+        "ما اسم القبيلة التي ينتمي إليها النبي ﷺ؟",
+        "قريش",
+        "الأوس",
+        "الخزرج",
+        "ثقيف"
+    ],
+    [
+        "من زوجة النبي ﷺ التي كانت معه عند بدء الوحي، والتي تزوجها قبل عائشة؟",
+        "خديجة بنت خويلد",
+        "عائشة بنت أبي بكر",
+        "حفصة بنت عمر",
+        "زينب بنت جحش"
+    ],
+    [
+        "من الصحابي الذي رافق النبي ﷺ في الغار أثناء الهجرة؟",
+        "أبو بكر الصديق",
+        "عمر بن الخطاب",
+        "عثمان بن عفان",
+        "علي بن أبي طالب"
+    ],
+    [
+        "إلى أي مدينة هاجر النبي ﷺ من مكة؟",
+        "المدينة المنورة",
+        "الطائف",
+        "القدس",
+        "خيبر"
+    ],
+    [
+        "من الصحابي الذي تولّى الخلافة بعد وفاة النبي ﷺ؟",
+        "أبو بكر الصديق",
+        "عمر بن الخطاب",
+        "عثمان بن عفان",
+        "علي بن أبي طالب"
+    ],
+    [
+        "من الخليفة الراشد الثاني بعد أبي بكر الصديق؟",
+        "عمر بن الخطاب",
+        "عثمان بن عفان",
+        "علي بن أبي طالب",
+        "معاوية بن أبي سفيان"
+    ],
+    [
+        "من الصحابي الذي أمره النبي ﷺ أن يؤذن للصلاة في المدينة؟",
+        "بلال بن رباح",
+        "أبو هريرة",
+        "سلمان الفارسي",
+        "زيد بن ثابت"
+    ],
+    [
+        "من الصحابي الذي وُصف في حديث صحيح بأنه «سيف من سيوف الله» بعد قيادة الراية في مؤتة؟",
+        "خالد بن الوليد",
+        "سعد بن أبي وقاص",
+        "الزبير بن العوام",
+        "أبو عبيدة بن الجراح"
+    ],
+    [
+        "من القائد الأول المعيّن في غزوة مؤتة وفق صحيح البخاري؟",
+        "زيد بن حارثة",
+        "جعفر بن أبي طالب",
+        "عبد الله بن رواحة",
+        "خالد بن الوليد"
+    ],
+    [
+        "من كان القائد التالي بعد زيد بن حارثة في مؤتة وفق الحديث؟",
+        "جعفر بن أبي طالب",
+        "خالد بن الوليد",
+        "عبد الله بن عمر",
+        "أبو عبيدة بن الجراح"
+    ],
+    [
+        "من القائد الذي يأتي بعد جعفر بن أبي طالب في ترتيب القيادة يوم مؤتة؟",
+        "عبد الله بن رواحة",
+        "زيد بن ثابت",
+        "سعد بن معاذ",
+        "أسامة بن زيد"
+    ],
+    [
+        "في أي حدث وقعت بيعة الرضوان المذكورة في سورة الفتح؟",
+        "صلح الحديبية",
+        "غزوة بدر",
+        "غزوة أحد",
+        "غزوة تبوك"
+    ],
+    [
+        "أي سورة أشارت إلى حنين وابتداء إعجاب المسلمين بكثرتهم؟",
+        "سورة التوبة",
+        "سورة الأنفال",
+        "سورة الفتح",
+        "سورة الأحزاب"
+    ]
+];
+
+const hardQuestions = [
+    [
+        "ما أطول آية في القرآن الكريم، وتتناول توثيق الدَّين؟",
+        "البقرة 2:282",
+        "آية الكرسي 2:255",
+        "آية النور 24:35",
+        "آية الصيام 2:183"
+    ],
+    [
+        "في أي سورة وردت عبارة «إنما المشركون نجس»؟",
+        "سورة التوبة",
+        "سورة المائدة",
+        "سورة الأنعام",
+        "سورة البقرة"
+    ],
+    [
+        "في أي سورة وردت آية الوضوء التي تحدد غسل الوجه واليدين ومسح الرأس وغسل الرجلين؟",
+        "سورة المائدة",
+        "سورة النساء",
+        "سورة النور",
+        "سورة التوبة"
+    ],
+    [
+        "ما اسم السورة التي ورد فيها «فإذا قضيت الصلاة فانتشروا في الأرض» بعد ذكر صلاة الجمعة؟",
+        "سورة الجمعة",
+        "سورة المنافقون",
+        "سورة التغابن",
+        "سورة الصف"
+    ],
+    [
+        "أي سورة جمعت ذكر أصحاب الكهف، وموسى والخضر، وذي القرنين؟",
+        "سورة الكهف",
+        "سورة القصص",
+        "سورة الإسراء",
+        "سورة الأنبياء"
+    ],
+    [
+        "في أي سورة وردت قصة ابتلاء إبراهيم بذبح ابنه في رؤيا؟",
+        "سورة الصافات",
+        "سورة يوسف",
+        "سورة مريم",
+        "سورة النحل"
+    ],
+    [
+        "أي سورة تتضمن قصة موسى مع العبد الصالح الذي خرق السفينة وقتل الغلام وأقام الجدار؟",
+        "سورة الكهف",
+        "سورة طه",
+        "سورة القصص",
+        "سورة الأنبياء"
+    ],
+    [
+        "في أي سورة وردت قصة أصحاب الأخدود؟",
+        "سورة البروج",
+        "سورة الفجر",
+        "سورة الغاشية",
+        "سورة الطارق"
+    ],
+    [
+        "أي سورة تذكر حادثة الإفك وتبرئة عائشة رضي الله عنها في سياق الآيات؟",
+        "سورة النور",
+        "سورة الأحزاب",
+        "سورة النساء",
+        "سورة التحريم"
+    ],
+    [
+        "في أي سورة وردت آية الكرسي ذات الرقم 255؟",
+        "سورة البقرة",
+        "سورة آل عمران",
+        "سورة الأعراف",
+        "سورة الرعد"
+    ],
+    [
+        "أي سورة تتضمن الآية «وما خلقت الجن والإنس إلا ليعبدون»؟",
+        "سورة الذاريات",
+        "سورة الرحمن",
+        "سورة المؤمنون",
+        "سورة النحل"
+    ],
+    [
+        "في أي سورة وردت قصة أصحاب السبت في سياق الاعتداء على حكم السبت؟",
+        "سورة الأعراف",
+        "سورة يوسف",
+        "سورة مريم",
+        "سورة ق"
+    ],
+    [
+        "أي سورة تتضمن أمر الله لموسى أن يضرب البحر بعصاه؟",
+        "سورة الشعراء",
+        "سورة البقرة",
+        "سورة الحجر",
+        "سورة النمل"
+    ],
+    [
+        "أي سورة تذكر عدد خزنة جهنم تسعة عشر؟",
+        "سورة المدثر",
+        "سورة المزمل",
+        "سورة الحاقة",
+        "سورة القيامة"
+    ],
+    [
+        "في أي سورة وردت الآية «إن الله لا يغير ما بقوم حتى يغيروا ما بأنفسهم»؟",
+        "سورة الرعد",
+        "سورة إبراهيم",
+        "سورة الأنفال",
+        "سورة التوبة"
+    ],
+    [
+        "ما السورة التي ورد فيها وصف «الرقيم» مع أصحاب الكهف؟",
+        "سورة الكهف",
+        "سورة مريم",
+        "سورة النمل",
+        "سورة القصص"
+    ],
+    [
+        "ما السورة التي وردت فيها قصة النملة التي حذرت قومها من جيش سليمان؟",
+        "سورة النمل",
+        "سورة النحل",
+        "سورة العنكبوت",
+        "سورة سبأ"
+    ],
+    [
+        "أي سورة تذكر أن الله جعل من الماء كل شيء حي؟",
+        "سورة الأنبياء",
+        "سورة النور",
+        "سورة المؤمنون",
+        "سورة الفرقان"
+    ],
+    [
+        "في أي سورة وردت قصة صاحب الجنتين؟",
+        "سورة الكهف",
+        "سورة يوسف",
+        "سورة سبأ",
+        "سورة ق"
+    ],
+    [
+        "في أي سورة وردت آية «وقضى ربك ألا تعبدوا إلا إياه وبالوالدين إحسانًا»؟",
+        "سورة الإسراء",
+        "سورة لقمان",
+        "سورة الأنعام",
+        "سورة النحل"
+    ],
+    [
+        "ما العلامة التي طلبها زكريا عليه السلام بعد البشارة بيحيى، وجاءت في القرآن؟",
+        "ألا يكلم الناس ثلاثة أيام إلا رمزًا",
+        "ألا يأكل أسبوعًا",
+        "أن يعتزل الناس شهرًا",
+        "أن يفقد بصره"
+    ],
+    [
+        "كم عينًا انفجرت لموسى عليه السلام عندما ضرب الحجر، كما في القرآن؟",
+        "اثنتا عشرة عينًا",
+        "عشر عيون",
+        "سبع عيون",
+        "أربع عيون"
+    ],
+    [
+        "ما الطعامان اللذان أنزلهما الله لبني إسرائيل في التيه؟",
+        "المنّ والسلوى",
+        "العسل واللبن",
+        "التمر والزيتون",
+        "السمك والخبز"
+    ],
+    [
+        "من النبي الذي أُرسل إلى فرعون مع أخيه هارون؟",
+        "موسى عليه السلام",
+        "إبراهيم عليه السلام",
+        "عيسى عليه السلام",
+        "داود عليه السلام"
+    ],
+    [
+        "من النبي الذي بُشّر بإسحاق ومن وراء إسحاق يعقوب؟",
+        "إبراهيم عليه السلام",
+        "نوح عليه السلام",
+        "لوط عليه السلام",
+        "أيوب عليه السلام"
+    ],
+    [
+        "من النبي الذي دعا: «رب لا تذرني فردًا وأنت خير الوارثين»؟",
+        "زكريا عليه السلام",
+        "إبراهيم عليه السلام",
+        "يعقوب عليه السلام",
+        "موسى عليه السلام"
+    ],
+    [
+        "من النبي الذي وصفه القرآن بأنه «صادق الوعد» وذكره في سورة مريم؟",
+        "إسماعيل عليه السلام",
+        "إسحاق عليه السلام",
+        "يعقوب عليه السلام",
+        "يوسف عليه السلام"
+    ],
+    [
+        "من النبي الذي طلب من الله أن يريه كيف يحيي الموتى؟",
+        "إبراهيم عليه السلام",
+        "موسى عليه السلام",
+        "عيسى عليه السلام",
+        "زكريا عليه السلام"
+    ],
+    [
+        "من الذي قال لقومه في القرآن إنه رسول أمين لهم وطلب ألا يتقوا غير الله؟",
+        "نوح عليه السلام",
+        "قارون",
+        "هامان",
+        "جالوت"
+    ],
+    [
+        "من النبي الذي أُلقي في الجب ثم بيع بثمن بخس؟",
+        "يوسف عليه السلام",
+        "موسى عليه السلام",
+        "إسماعيل عليه السلام",
+        "يونس عليه السلام"
+    ],
+    [
+        "ما الآية التي ظهرت على يوسف عليه السلام لتدل على براءته في قصة القميص؟",
+        "قدّ القميص من دبر",
+        "وجود خاتم في يده",
+        "اعتراف العزيز",
+        "شهادة الجيران"
+    ],
+    [
+        "من النبي الذي قال لقومه: «يا قوم اعبدوا الله ما لكم من إله غيره» وكان من ثمود؟",
+        "صالح عليه السلام",
+        "هود عليه السلام",
+        "شعيب عليه السلام",
+        "لوط عليه السلام"
+    ],
+    [
+        "ما الذي طلبه قوم عيسى عليه السلام من السماء في سورة المائدة؟",
+        "مائدة من السماء",
+        "ناقة",
+        "عصا",
+        "سفينة"
+    ],
+    [
+        "من النبي الذي علّم الله أباه إبراهيم مناسك الحج وأراه مكان البيت بحسب سورة الحج؟",
+        "إبراهيم عليه السلام",
+        "موسى عليه السلام",
+        "داود عليه السلام",
+        "يعقوب عليه السلام"
+    ],
+    [
+        "ما الذي صنعه ذو القرنين ليحول بين القوم ويأجوج ومأجوج؟",
+        "ردمًا من الحديد والنحاس المذاب",
+        "خندقًا من الماء",
+        "سورًا من الخشب",
+        "جدارًا من القماش"
+    ],
+    [
+        "من النبي الذي قال: «إني ذاهب إلى ربي سيهدين» في سياق هجرته؟",
+        "إبراهيم عليه السلام",
+        "موسى عليه السلام",
+        "نوح عليه السلام",
+        "لوط عليه السلام"
+    ],
+    [
+        "ما اسم الوادي الذي نودي فيه موسى عليه السلام عند الطور؟",
+        "طُوى",
+        "مجمع البحرين",
+        "وادي القرى",
+        "وادي بكة"
+    ],
+    [
+        "في أي سورة ورد أن عيسى عليه السلام تكلّم في المهد؟",
+        "سورة مريم",
+        "سورة البقرة",
+        "سورة النور",
+        "سورة يونس"
+    ],
+    [
+        "ما الذي علّمه الله لآدم عليه السلام بحسب سورة البقرة؟",
+        "الأسماء كلها",
+        "صناعة الحديد",
+        "لغة الطير",
+        "تأويل الأحلام"
+    ],
+    [
+        "في حديث جبريل، ما أركان الإيمان المذكورة؟",
+        "الإيمان بالله وملائكته وكتبه ورسله واليوم الآخر والقدر",
+        "الإيمان بالله والملائكة فقط",
+        "الشهادتان والصلاة والصيام والزكاة والحج",
+        "الصلاة والزكاة والصيام فقط"
+    ],
+    [
+        "كم مفهومًا رئيسيًا يشرح حديث جبريل: الإسلام والإيمان والإحسان؟",
+        "ثلاثة مفاهيم",
+        "مفهومان",
+        "أربعة مفاهيم",
+        "خمسة مفاهيم"
+    ],
+    [
+        "أي حديث صحيح يربط صحة الهجرة وقبول العمل بالنية؟",
+        "إنما الأعمال بالنيات",
+        "الدين النصيحة",
+        "الحياء من الإيمان",
+        "المسلم أخو المسلم"
+    ],
+    [
+        "ما الأمر الذي قاله النبي ﷺ للرجل الذي طلب منه وصية مختصرة، وتكرر في الرواية؟",
+        "لا تغضب",
+        "لا تسافر",
+        "لا تتكلم مع الناس",
+        "لا تأكل اللحم"
+    ],
+    [
+        "ما الذي وصفه النبي ﷺ بأنه «الدين النصيحة»؟",
+        "النصيحة لله ولكتابه ولرسوله ولأئمة المسلمين وعامتهم",
+        "كثرة الكلام في الناس",
+        "الابتعاد عن المجتمع",
+        "الانتصار في النقاش"
+    ],
+    [
+        "ما الذي يجعل المسلم كاملًا في المحبة لأخيه وفق الحديث الصحيح؟",
+        "أن يحب لأخيه ما يحب لنفسه",
+        "أن يوافقه في كل رأي",
+        "أن يعطيه كل ماله",
+        "أن يترك العمل لأجله"
+    ],
+    [
+        "ما معيار المسلم في حديث «المسلم من سلم المسلمون من لسانه ويده»؟",
+        "أن يأمن الناس أذى لسانه ويده",
+        "أن يكون كثير السفر",
+        "أن يكون أقوى الناس جسدًا",
+        "أن يتجنب كل مخالطة"
+    ],
+    [
+        "ما الذي قرره الحديث الصحيح بشأن الرفق؟",
+        "لا يكون في شيء إلا زانه",
+        "هو مذموم عند الاختلاف",
+        "يمنع من قول الحق دائمًا",
+        "لا يكون إلا في العبادة"
+    ],
+    [
+        "ما العمل الذي وصفه الحديث بأنه صدقة، ولو كان كلمة؟",
+        "الكلمة الطيبة",
+        "الصمت في كل حال",
+        "إخفاء العلم النافع",
+        "ترك مساعدة الآخرين"
+    ],
+    [
+        "ما أول عمل ذكره النبي ﷺ عندما سئل: «أي العمل أحب إلى الله؟»؟",
+        "الصلاة على وقتها",
+        "بر الوالدين",
+        "الجهاد في سبيل الله",
+        "طلب العلم"
+    ],
+    [
+        "ما المقصود بالطهور في حديث «الطهور شطر الإيمان»؟",
+        "الطهارة",
+        "السفر",
+        "الصيام",
+        "التجارة"
+    ],
+    [
+        "أي أمر يجمعه الحديث الصحيح مع الإيمان بالله واليوم الآخر إلى جانب قول الخير؟",
+        "إكرام الضيف وصلة الرحم وعدم إيذاء الجار",
+        "كثرة المزاح",
+        "الانشغال عن الجار",
+        "ترك الضيافة مطلقًا"
+    ],
+    [
+        "من الذي قال عنه النبي ﷺ إنه لا يَرحم لا يُرحم؟",
+        "من لا يرحم",
+        "من لا يسافر",
+        "من لا يملك مالًا",
+        "من لا يتكلم كثيرًا"
+    ],
+    [
+        "ما الذي ورد في صحيح مسلم عن إزالة الأذى عن الطريق؟",
+        "هي من شعب الإيمان",
+        "لا علاقة لها بالإيمان",
+        "هي واجبة في كل حالة بلا استثناء",
+        "تُعد من شؤون الحكام فقط"
+    ],
+    [
+        "أي عبارة تنسب للنبي ﷺ في صحيح البخاري بشأن الضيف؟",
+        "من كان يؤمن بالله واليوم الآخر فليكرم ضيفه",
+        "لا تستقبل ضيفًا أكثر من يوم",
+        "الضيافة خاصة بالأقارب",
+        "الضيف لا حق له في الإكرام"
+    ],
+    [
+        "أي فعل يُعد من دلائل الإيمان في حديث شعب الإيمان؟",
+        "إماطة الأذى عن الطريق",
+        "إيذاء المارة",
+        "السخرية من الناس",
+        "التفاخر بالأعمال"
+    ],
+    [
+        "ما الذي ذكرته آية التوبة 60 ضمن مصارف الزكاة؟",
+        "العاملون عليها",
+        "كل غني يريد التجارة",
+        "أصحاب كل مشروع تجاري",
+        "كل مسافر ولو كان غنيًا"
+    ],
+    [
+        "ما حكم إكمال عدة رمضان بحسب آية الصيام عند الفطر من المرض أو السفر؟",
+        "قضاء عدد من أيام أُخر بقدر ما أفطر",
+        "لا قضاء مطلقًا",
+        "قضاء شهرين متتابعين لكل يوم",
+        "إطعام شخص واحد حتمًا عن كل يوم"
+    ],
+    [
+        "أي أمر ذُكر في آية الوضوء إذا لم يجد المسلم ماءً؟",
+        "التيمم بصعيد طيب عند تحقق موجبه",
+        "ترك الصلاة نهائيًا",
+        "الغسل بماء البحر فقط",
+        "إعادة الوضوء بلا ماء"
+    ],
+    [
+        "ما العبادة التي ربطتها آية آل عمران بالاستطاعة إلى البيت؟",
+        "الحج",
+        "الاعتكاف",
+        "صلاة الجمعة",
+        "الأضحية"
+    ],
+    [
+        "ما الذي أمرت به آية الجمعة 9 عند النداء لصلاة الجمعة؟",
+        "السعي إلى ذكر الله وترك البيع",
+        "مواصلة البيع حتى انتهاء الصلاة",
+        "السفر من المدينة",
+        "تأخير الصلاة إلى الليل"
+    ],
+    [
+        "أي شهر مما يلي ليس من الأشهر الحرم؟",
+        "رمضان",
+        "المحرّم",
+        "ذو الحجة",
+        "رجب"
+    ],
+    [
+        "أي ركن من أركان الإسلام يتطلب الاستطاعة إلى البيت كما في سورة آل عمران؟",
+        "الحج",
+        "صيام رمضان",
+        "إيتاء الزكاة",
+        "الشهادة"
+    ],
+    [
+        "ما العدد الذي حدده حديث ابن عمر لأركان الإسلام؟",
+        "خمسة",
+        "ثلاثة",
+        "ستة",
+        "ثمانية"
+    ],
+    [
+        "ما العبادة التي ذُكرت في حديث جبريل ضمن الإسلام بعد الشهادتين؟",
+        "إقام الصلاة وإيتاء الزكاة وصوم رمضان والحج",
+        "الاعتكاف والعمرة فقط",
+        "الجهاد فقط",
+        "صلاة العيد فقط"
+    ],
+    [
+        "ما الذي تقوله آية البقرة 286 عن التكليف؟",
+        "لا يكلف الله نفسًا إلا وسعها",
+        "يكلّف كل إنسان ما لا يستطيع",
+        "لا توجد مسؤولية على الإنسان مطلقًا",
+        "التكليف خاص بالأغنياء"
+    ],
+    [
+        "كم كان عمر النبي ﷺ عند وفاته بحسب روايات صحيحة؟",
+        "ثلاثًا وستين سنة",
+        "خمسًا وخمسين سنة",
+        "سبعين سنة",
+        "أربعين سنة"
+    ],
+    [
+        "كم سنة أقام النبي ﷺ بمكة بعد بدء الوحي، وكم سنة بالمدينة بحسب رواية أنس؟",
+        "ثلاث عشرة بمكة وعشرًا بالمدينة",
+        "عشرًا بمكة وثلاث عشرة بالمدينة",
+        "خمس عشرة في كل منهما",
+        "عشرين بمكة وخمسًا بالمدينة"
+    ],
+    [
+        "في أي غزوة كان زيد بن حارثة ثم جعفر بن أبي طالب ثم عبد الله بن رواحة على ترتيب القيادة؟",
+        "غزوة مؤتة",
+        "غزوة بدر",
+        "غزوة أحد",
+        "غزوة حنين"
+    ],
+    [
+        "أي سورة وثقت بيعة المؤمنين تحت الشجرة؟",
+        "سورة الفتح",
+        "سورة التوبة",
+        "سورة الأنفال",
+        "سورة الأحزاب"
+    ],
+    [
+        "أي صحابي كان كاتبًا للصلح في الحديبية في الروايات الصحيحة؟",
+        "علي بن أبي طالب",
+        "بلال بن رباح",
+        "أبو هريرة",
+        "عبد الله بن مسعود"
+    ],
+    [
+        "ما السورة التي تناولت أحداث غزوة حنين في آية صريحة؟",
+        "سورة التوبة",
+        "سورة الفتح",
+        "سورة محمد",
+        "سورة الأحزاب"
+    ],
+    [
+        "أي صحابي وُصف في حديث صحيح بأنه أمين هذه الأمة؟",
+        "أبو عبيدة بن الجراح",
+        "خالد بن الوليد",
+        "عبد الرحمن بن عوف",
+        "سعد بن أبي وقاص"
+    ],
+    [
+        "من الصحابي الذي قاد جيشًا في غزوة مؤتة بعد استشهاد القادة الثلاثة وفق الرواية؟",
+        "خالد بن الوليد",
+        "أبو بكر الصديق",
+        "عمر بن الخطاب",
+        "عمرو بن العاص"
+    ],
+    [
+        "أي سورة تذكر نصرة الله للمؤمنين يوم بدر وهم أذلة؟",
+        "سورة آل عمران",
+        "سورة يوسف",
+        "سورة مريم",
+        "سورة الرعد"
+    ],
+    [
+        "أي سورة تصف استعداد الأحزاب وجاء فيها ذكر إرسال الريح والجنود؟",
+        "سورة الأحزاب",
+        "سورة الأنفال",
+        "سورة التوبة",
+        "سورة النور"
+    ]
+];
+
+const CONFIG = {
+    firebaseLeaderboard: 'https://islamicmillion-328a1-default-rtdb.firebaseio.com/leaderboard.json',
+    firebaseUsers: 'https://islamicmillion-328a1-default-rtdb.firebaseio.com/users.json',
+    rewards: [10000, 20000, 30000, 40000, 50000, 100000, 150000, 200000, 200000, 200000],
+    safeLevels: [150000, 600000],
+    easyCount: 5,
+    totalQuestions: 10,
+    classicTimeEasy: 30,
+    classicTimeHard: 45,
+    dailyTimeEasy: 30,
+    dailyTimeHard: 45,
+    storage: {
+        player: 'millionaire_current_player',
+        theme: 'millionaire_theme',
+        sound: 'millionaire_sound',
+        stats: 'millionaire_stats_v2',
+        game: 'millionaire_game_state_v2',
+        pending: 'millionaire_pending_results_v2'
+    }
+};
+
+const rawEasy = easyQuestions;
+const rawHard = hardQuestions;
+
+function normalizeText(value) {
+    return String(value || '').replace(/[\u064B-\u065F\u0670]/g, '').replace(/[إأآ]/g, 'ا').replace(/ى/g, 'ي').replace(/ة/g, 'ه').replace(/\s+/g, ' ').trim().toLowerCase();
+}
+function cleanQuestions(raw, difficulty) {
+    const seen = new Set();
+    const out = [];
+    raw.forEach((q, index) => {
+        if (!Array.isArray(q) || q.length < 5) return;
+        const question = String(q[0] || '').trim();
+        const key = normalizeText(question);
+        if (!question || seen.has(key)) return;
+        seen.add(key);
+        const opts = q.slice(1,5).map(v => String(v || '').trim());
+        if (new Set(opts.map(normalizeText)).size < 4) return;
+        out.push({ id: difficulty + '-' + index, question, options: opts, correctIndex: 0, difficulty });
+    });
+    return out;
+}
+const EASY = cleanQuestions(rawEasy, 'easy');
+const HARD = cleanQuestions(rawHard, 'hard');
+
+let currentPlayer = localStorage.getItem(CONFIG.storage.player) || '';
+let currentMode = 'classic';
+let currentQuestions = [];
+let currentQuestionIndex = 0;
+let currentOptions = [];
+let currentScore = 0;
+let safeScore = 0;
+let currentStreak = 0;
+let bestStreakThisGame = 0;
+let correctCount = 0;
+let questionsAnswered = 0;
+let lifelines = { fifty:false, change:false, hint:false, audience:false };
+let isProcessing = false;
+let timerInterval = null;
+let timerDeadline = 0;
+let questionTimeLeft = 0;
+let toastTimer = null;
+let soundEnabled = localStorage.getItem(CONFIG.storage.sound) !== 'off';
+let activeBoard = 'best';
+let pendingSave = false;
+
+const $ = id => document.getElementById(id);
+
+function showModal(id) { $(id).classList.add('show'); document.body.classList.add('no-scroll'); }
+function hideModal(id) { $(id).classList.remove('show'); if (!document.querySelector('.modal.show')) document.body.classList.remove('no-scroll'); }
+function formatScore(n) { return Number(n || 0).toLocaleString('ar-EG'); }
+function todayKey() { const d = new Date(); return d.toISOString().slice(0,10); }
+function weekKey() { const d = new Date(); const day = (d.getUTCDay() + 6) % 7; d.setUTCDate(d.getUTCDate() - day); return d.toISOString().slice(0,10); }
+function seededRng(seed) {
+    let t = seed >>> 0;
+    return function() {
+        t += 0x6D2B79F5;
+        let x = t;
+        x = Math.imul(x ^ x >>> 15, x | 1);
+        x ^= x + Math.imul(x ^ x >>> 7, x | 61);
+        return ((x ^ x >>> 14) >>> 0) / 4294967296;
+    };
+}
+function hashSeed(value) { let h=2166136261; for (let i=0;i<value.length;i++) { h ^= value.charCodeAt(i); h = Math.imul(h,16777619); } return h >>> 0; }
+function shuffle(arr, rng=Math.random) {
+    const copy = [...arr];
+    for (let i=copy.length-1;i>0;i--) { const j=Math.floor(rng()*(i+1)); [copy[i],copy[j]]=[copy[j],copy[i]]; }
+    return copy;
+}
+function questionTime() { return currentQuestionIndex < CONFIG.easyCount ? (currentMode === 'daily' ? CONFIG.dailyTimeEasy : CONFIG.classicTimeEasy) : (currentMode === 'daily' ? CONFIG.dailyTimeHard : CONFIG.classicTimeHard); }
+function modeLabel() { return currentMode === 'daily' ? '🔥 تحدي اليوم' : '🎲 لعبة عشوائية'; }
+
+function defaultStats() {
+    return { games:0, bestScore:0, totalScore:0, correct:0, answered:0, xp:0, bestStreak:0, achievements:{first:false,millionaire:false,perfect:false,noLifelines:false,daily:false,streak5:false} };
+}
+function getStats() { try { return {...defaultStats(), ...(JSON.parse(localStorage.getItem(CONFIG.storage.stats)) || {})}; } catch { return defaultStats(); } }
+function saveStats(s) { localStorage.setItem(CONFIG.storage.stats, JSON.stringify(s)); }
+function levelFromXp(xp) { return Math.floor((xp || 0) / 500) + 1; }
+function xpToNext(xp) { return 500 - ((xp || 0) % 500); }
+function calculateXp(score, correct, mode, noLifelines, streak) {
+    let xp = Math.floor(score / 10000) + correct * 25 + Math.max(0, streak-1) * 20;
+    if (mode === 'daily') xp += 100;
+    if (noLifelines) xp += 75;
+    return xp;
+}
+
+function saveLocalGame() {
+    if (!currentPlayer || !currentQuestions.length || currentQuestionIndex >= CONFIG.totalQuestions || isProcessing) return;
+    const data = { currentPlayer, currentMode, currentQuestions, currentQuestionIndex, currentScore, safeScore, currentStreak, bestStreakThisGame, correctCount, questionsAnswered, lifelines, questionTimeLeft, savedAt: Date.now(), day: todayKey() };
+    localStorage.setItem(CONFIG.storage.game, JSON.stringify(data));
+}
+function clearLocalGame() { localStorage.removeItem(CONFIG.storage.game); }
+function restoreCandidate() {
+    try {
+        const data = JSON.parse(localStorage.getItem(CONFIG.storage.game));
+        if (!data || data.currentPlayer !== currentPlayer || !Array.isArray(data.currentQuestions) || data.currentQuestions.length !== CONFIG.totalQuestions) return null;
+        if (Date.now() - data.savedAt > 1000 * 60 * 60 * 8) return null;
+        if (data.currentMode === 'daily' && data.day !== todayKey()) return null;
+        return data;
+    } catch { return null; }
+}
+
+function updateHeader() {
+    $('playerNameStat').textContent = currentPlayer || '-';
+    $('scoreStat').textContent = formatScore(currentScore);
+    $('safeStat').textContent = formatScore(safeScore);
+    $('safeText').textContent = formatScore(safeScore) + ' حسنة';
+    $('streakStat').textContent = currentStreak + ' 🔥';
+    $('modeBadge').textContent = modeLabel();
+    const pct = Math.min(100, ((currentQuestionIndex) / CONFIG.totalQuestions) * 100);
+    $('progressFill').style.width = pct + '%';
+}
+function updateQuestionMeta() {
+    $('questionNumber').textContent = `السؤال ${Math.min(currentQuestionIndex+1, CONFIG.totalQuestions)} / ${CONFIG.totalQuestions}`;
+    $('difficultyPill').textContent = currentQuestionIndex < CONFIG.easyCount ? '🟢 سهل' : '🔴 صعب';
+    updateHeader();
+}
+function renderQuestion() {
+    if (!currentQuestions[currentQuestionIndex]) return;
+    const q = currentQuestions[currentQuestionIndex];
+    $('questionText').textContent = q.question;
+    currentOptions = shuffle(q.options.map((text, idx) => ({text, correct: idx === q.correctIndex}))).map((opt, idx) => ({...opt, index:idx}));
+    $('options').innerHTML = '';
+    ['أ','ب','ج','د'].forEach((letter, idx) => {
+        const opt = currentOptions[idx];
+        const btn = document.createElement('button');
+        btn.className = 'option'; btn.type='button'; btn.dataset.index = idx;
+        const letterSpan = document.createElement('span'); letterSpan.className='option-letter'; letterSpan.textContent = letter;
+        const textSpan = document.createElement('span'); textSpan.textContent = opt.text;
+        btn.append(letterSpan, textSpan);
+        btn.addEventListener('click', () => selectOption(idx));
+        $('options').appendChild(btn);
+        opt.element = btn;
+    });
+    updateQuestionMeta();
+    updateLifelines();
+    beginTimer(questionTimeLeft || questionTime());
+}
+function beginTimer(seconds) {
+    clearInterval(timerInterval);
+    questionTimeLeft = Math.max(0, Math.floor(seconds));
+    timerDeadline = Date.now() + questionTimeLeft * 1000;
+    renderTimer();
+    timerInterval = setInterval(() => {
+        questionTimeLeft = Math.max(0, Math.ceil((timerDeadline - Date.now()) / 1000));
+        renderTimer();
+        if (questionTimeLeft <= 0) { clearInterval(timerInterval); handleTimeout(); }
+    }, 250);
+}
+function renderTimer() {
+    $('timerPill').textContent = `⏱ ${String(Math.floor(questionTimeLeft/60)).padStart(2,'0')}:${String(questionTimeLeft%60).padStart(2,'0')}`;
+    $('timerPill').classList.toggle('danger', questionTimeLeft <= 10);
+}
+function stopTimer() { clearInterval(timerInterval); timerInterval = null; questionTimeLeft = Math.max(0, Math.ceil((timerDeadline - Date.now())/1000)); }
+function updateLifelines() {
+    [['life5050','fifty'],['lifeChange','change'],['lifeHint','hint'],['lifeAudience','audience']].forEach(([id,key]) => { $(id).disabled = lifelines[key] || isProcessing || !currentQuestions.length; });
+}
+function hideOptionsButtons() { document.querySelectorAll('.option').forEach(b => b.disabled = true); }
+function correctButton() { return currentOptions.find(o => o.correct)?.element; }
+
+function selectOption(index) {
+    if (isProcessing || !currentOptions[index]) return;
+    isProcessing = true; stopTimer(); hideOptionsButtons();
+    const picked = currentOptions[index];
+    picked.element.classList.add('pending');
+    sound('select');
+    setTimeout(() => resolveAnswer(picked.correct, picked.element, false), 700);
+}
+function handleTimeout() {
+    if (isProcessing) return;
+    isProcessing = true; hideOptionsButtons();
+    sound('wrong');
+    showToast('⏰ انتهى الوقت!');
+    resolveAnswer(false, null, true);
+}
+function resolveAnswer(isCorrect, pickedElement, timedOut) {
+    if (pickedElement) pickedElement.classList.remove('pending');
+    const correct = correctButton();
+    if (isCorrect) {
+        pickedElement?.classList.add('correct');
+        currentScore += CONFIG.rewards[currentQuestionIndex];
+        correctCount++; questionsAnswered++; currentStreak++; bestStreakThisGame = Math.max(bestStreakThisGame, currentStreak);
+        if (CONFIG.safeLevels.includes(currentScore)) safeScore = currentScore;
+        sound('correct');
+    } else {
+        pickedElement?.classList.add('wrong');
+        correct?.classList.add('correct');
+        questionsAnswered++; currentStreak = 0;
+        currentScore = safeScore;
+        sound('wrong');
+    }
+    updateHeader(); saveLocalGame();
+    setTimeout(() => {
+        currentQuestionIndex++;
+        if (currentQuestionIndex >= CONFIG.totalQuestions) finishGame();
+        else { isProcessing=false; questionTimeLeft=0; renderQuestion(); }
+    }, timedOut ? 1500 : 1900);
+}
+function use50() {
+    if (lifelines.fifty || isProcessing) return;
+    lifelines.fifty=true; sound('click');
+    shuffle(currentOptions.filter(o=>!o.correct)).slice(0,2).forEach(o=>o.element.classList.add('eliminated'));
+    updateLifelines(); saveLocalGame();
+}
+function useChange() {
+    if (lifelines.change || isProcessing) return;
+    const pool = currentQuestionIndex < CONFIG.easyCount ? EASY : HARD;
+    const usedIds = new Set(currentQuestions.map(q=>q.id));
+    const candidates = pool.filter(q=>!usedIds.has(q.id));
+    if (!candidates.length) { showToast('لا يوجد سؤال بديل مناسب حالياً.'); return; }
+    lifelines.change=true; sound('click');
+    currentQuestions[currentQuestionIndex] = candidates[Math.floor(Math.random()*candidates.length)];
+    questionTimeLeft = 0; renderQuestion(); saveLocalGame();
+}
+function useHint() {
+    if (lifelines.hint || isProcessing) return;
+    lifelines.hint=true; sound('hint');
+    const correct = currentOptions.find(o=>o.correct)?.text || '';
+    const clean = correct.replace(/^["“”'\s]+/, '').replace(/^ال/, '').trim();
+    showToast(`💡 التلميح: تبدأ الإجابة الصحيحة بحرف «${clean.charAt(0) || '؟'}»`);
+    updateLifelines(); saveLocalGame();
+}
+function useAudience() {
+    if (lifelines.audience || isProcessing) return;
+    lifelines.audience=true; sound('hint');
+    const seed = hashSeed((currentQuestions[currentQuestionIndex]?.question || '') + todayKey());
+    const rng = seededRng(seed);
+    let correctPct = 55 + Math.floor(rng()*25);
+    const remain = 100 - correctPct;
+    const others = [Math.floor(rng()*remain), Math.floor(rng()*remain), 0];
+    others[2] = Math.max(0, remain - others[0] - others[1]);
+    const values = currentOptions.map(o=>o.correct ? correctPct : others.shift());
+    const chart = $('audienceChart'); chart.innerHTML='';
+    ['أ','ب','ج','د'].forEach((letter, i)=>{
+        const row=document.createElement('div'); row.className='bar-row';
+        const l=document.createElement('strong'); l.textContent=letter;
+        const track=document.createElement('div'); track.className='bar-track';
+        const bar=document.createElement('div'); bar.className='bar'; bar.style.width=values[i]+'%'; track.appendChild(bar);
+        const v=document.createElement('strong'); v.textContent=values[i]+'%';
+        row.append(l,track,v); chart.appendChild(row);
+    });
+    updateLifelines(); saveLocalGame(); showModal('audienceModal');
+}
+
+function initQuestions(mode) {
+    currentMode = mode;
+    if (mode === 'daily') {
+        const rng = seededRng(hashSeed('daily-' + todayKey()));
+        const easy = shuffle(EASY, rng).slice(0, CONFIG.easyCount);
+        const hard = shuffle(HARD, rng).slice(0, CONFIG.totalQuestions-CONFIG.easyCount);
+        currentQuestions = [...easy, ...hard];
+    } else {
+        currentQuestions = [...shuffle(EASY).slice(0,CONFIG.easyCount), ...shuffle(HARD).slice(0,CONFIG.totalQuestions-CONFIG.easyCount)];
+    }
+}
+function startGame(mode='classic') {
+    hideModal('welcomeModal'); hideModal('resultsModal'); hideModal('resumeModal');
+    currentMode=mode; initQuestions(mode); currentQuestionIndex=0; currentScore=0; safeScore=0; currentStreak=0; bestStreakThisGame=0; correctCount=0; questionsAnswered=0; isProcessing=false;
+    lifelines={fifty:false,change:false,hint:false,audience:false}; clearLocalGame();
+    sound('start'); renderQuestion(); updateHeader(); saveLocalGame();
+}
+function resumeGame(data) {
+    hideModal('resumeModal');
+    currentMode=data.currentMode; currentQuestions=data.currentQuestions; currentQuestionIndex=data.currentQuestionIndex; currentScore=data.currentScore; safeScore=data.safeScore; currentStreak=data.currentStreak; bestStreakThisGame=data.bestStreakThisGame; correctCount=data.correctCount; questionsAnswered=data.questionsAnswered; lifelines=data.lifelines;
+    isProcessing=false; currentOptions=[]; renderQuestion();
+    if (data.questionTimeLeft) beginTimer(Math.min(data.questionTimeLeft, questionTime()));
+    showToast('▶ تم استئناف اللعبة.');
+}
+
+async function authPlayer() {
+    const name = $('usernameInput').value.trim();
+    const password = $('passwordInput').value;
+    if (name.length < 2 || name.length > 24) { showToast('⚠️ الاسم يجب أن يكون بين حرفين و24 حرفاً.'); return; }
+    if (password.length < 3) { showToast('⚠️ اختر كلمة مرور من 3 محارف على الأقل.'); return; }
+    $('authBtn').disabled=true; $('authBtn').textContent='⏳ جارٍ التحقق...';
+    try {
+        let users = {};
+        const res = await fetch(CONFIG.firebaseUsers, {cache:'no-store'});
+        if (res.ok) users = (await res.json()) || {};
+        const key = normalizeText(name);
+        const existing = Object.values(users).find(u => normalizeText(u?.name) === key);
+        if (existing && existing.password !== password) { showToast('❌ كلمة المرور غير صحيحة لهذا الاسم.'); return; }
+        if (!existing) {
+            const create = await fetch(CONFIG.firebaseUsers, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({name, nameKey:key, password, createdAt:new Date().toISOString()})});
+            if (!create.ok) throw new Error('user-create-failed');
+            showToast('✅ تم إنشاء الحساب بنجاح.');
+        } else showToast(`مرحباً بعودتك يا ${name} 🎮`);
+        currentPlayer=name;
+        localStorage.setItem(CONFIG.storage.player,currentPlayer);
+        $('playerNameStat').textContent=currentPlayer;
+        $('welcomeName').textContent=currentPlayer;
+        hideModal('authModal'); showModal('welcomeModal'); updateMiniProfile();
+    } catch (e) {
+        // يسمح باللعب المحلي في حال انقطاع الشبكة.
+        currentPlayer=name; localStorage.setItem(CONFIG.storage.player,currentPlayer); hideModal('authModal'); showModal('welcomeModal'); updateMiniProfile();
+        showToast('ℹ️ تعذر الاتصال بالسحابة، سيتم اللعب محلياً والمزامنة لاحقاً.');
+    } finally { $('authBtn').disabled=false; $('authBtn').textContent='🚀 دخول / إنشاء حساب'; }
+}
+
+function logout() {
+    clearLocalGame(); currentPlayer=''; currentQuestions=[]; stopTimer(); localStorage.removeItem(CONFIG.storage.player); hideAllModals(); showModal('authModal'); $('usernameInput').value=''; $('passwordInput').value=''; $('questionText').textContent='ابدأ اللعبة من القائمة للبدء.'; updateHeader(); }
+function hideAllModals() { document.querySelectorAll('.modal').forEach(m=>m.classList.remove('show')); document.body.classList.remove('no-scroll'); }
+
+function updateMiniProfile() {
+    const s=getStats(); const level=levelFromXp(s.xp); const box=$('miniProfile'); box.innerHTML='';
+    [['⭐ المستوى',level],['🎮 الألعاب',s.games],['🏆 الأفضل',formatScore(s.bestScore)],['🔥 أفضل سلسلة',s.bestStreak]].forEach(([a,b])=>{ const d=document.createElement('div'); d.className='profile-card'; const sp=document.createElement('span'); sp.textContent=a; const st=document.createElement('strong'); st.textContent=b; d.append(sp,st); box.appendChild(d); });
+}
+function renderProfile() {
+    const s=getStats(); const level=levelFromXp(s.xp); const p=$('profileContent'); p.innerHTML='';
+    const grid=document.createElement('div'); grid.className='profile';
+    [['اللاعب',currentPlayer],['المستوى',level],['XP',s.xp],['XP للمستوى التالي',xpToNext(s.xp)],['أفضل نتيجة',formatScore(s.bestScore)],['الرصيد التراكمي',formatScore(s.totalScore)],['إجابات صحيحة',s.correct],['الأسئلة المُجابة',s.answered]].forEach(([a,b])=>{const d=document.createElement('div'); d.className='profile-card'; const sp=document.createElement('span');sp.textContent=a;const st=document.createElement('strong');st.textContent=b;d.append(sp,st);grid.appendChild(d);});
+    p.appendChild(grid);
+    const h=document.createElement('h3'); h.style.marginTop='18px'; h.style.color='var(--gold)'; h.textContent='🏅 الإنجازات'; p.appendChild(h);
+    const list=document.createElement('div'); list.className='achievement-list';
+    const achievements=[['first','🎮 أول لعبة','أكمل أول جولة'],['millionaire','👑 بطل المليون','احصل على 1,000,000 حسنة'],['perfect','💯 إجابات كاملة','أجب عن كل الأسئلة بشكل صحيح'],['noLifelines','🧠 بدون مساعدة','أكمل لعبة دون وسائل مساعدة'],['daily','🔥 تحدي اليوم','أكمل تحدي اليوم'],['streak5','🔥 سلسلة خماسية','حقق 5 إجابات صحيحة متتالية']];
+    achievements.forEach(([k,title,desc])=>{ const row=document.createElement('div'); row.className='achievement'+(s.achievements?.[k]?'':' locked'); const a=document.createElement('div'); a.textContent=title; const b=document.createElement('span'); b.className='small'; b.textContent=s.achievements?.[k]?'مفتوحة ✅':desc; row.append(a,b); list.appendChild(row); });
+    p.appendChild(list);
+}
+
+function updateStatsAfterGame(xp) {
+    const s=getStats(); const noLifelines=Object.values(lifelines).every(v=>!v);
+    s.games += 1; s.bestScore=Math.max(s.bestScore,currentScore); s.totalScore += currentScore; s.correct += correctCount; s.answered += questionsAnswered; s.xp += xp; s.bestStreak=Math.max(s.bestStreak,bestStreakThisGame);
+    s.achievements.first=true; if(currentScore>=1000000)s.achievements.millionaire=true; if(correctCount===CONFIG.totalQuestions)s.achievements.perfect=true; if(noLifelines && currentScore>0)s.achievements.noLifelines=true; if(currentMode==='daily')s.achievements.daily=true; if(bestStreakThisGame>=5)s.achievements.streak5=true;
+    saveStats(s); return s;
+}
+
+async function finishGame() {
+    stopTimer(); clearLocalGame(); isProcessing=true;
+    const noLifelines=Object.values(lifelines).every(v=>!v);
+    const xp=calculateXp(currentScore,correctCount,currentMode,noLifelines,bestStreakThisGame);
+    const stats=updateStatsAfterGame(xp);
+    $('finalScore').textContent=formatScore(currentScore);
+    $('resultSub').textContent=currentScore>=1000000?'🎉 مبروك! حصدت المليون حسنة كاملة!':'الرصيد النهائي المحقق';
+    $('resultCorrect').textContent=`${correctCount}/${CONFIG.totalQuestions}`;
+    $('resultStreak').textContent=bestStreakThisGame;
+    $('resultXP').textContent=xp;
+    $('resultTitle').textContent=currentScore>=1000000?'👑 بطل المليون حسنة':(currentScore>=safeScore && safeScore>0?'انتهت الجولة — نتيجة ممتازة!':'انتهت اللعبة');
+    const ach=$('resultAchievements'); ach.innerHTML='';
+    const earned=[]; if(stats.achievements.millionaire && currentScore>=1000000)earned.push('👑 بطل المليون'); if(stats.achievements.perfect && correctCount===10)earned.push('💯 إجابات كاملة'); if(noLifelines && currentScore>0)earned.push('🧠 بدون مساعدة'); if(currentMode==='daily')earned.push('🔥 تحدي اليوم'); if(bestStreakThisGame>=5)earned.push('🔥 سلسلة خماسية');
+    if(earned.length){ earned.forEach(t=>{const d=document.createElement('div');d.className='achievement';d.textContent=t+' ✅';ach.appendChild(d);}); } else { const d=document.createElement('div');d.className='small';d.textContent='استمر — الإنجازات بانتظارك!';ach.appendChild(d); }
+    showModal('resultsModal');
+    if(currentScore>=1000000) celebrate();
+    pendingSave=true; $('saveStatus').textContent='⏳ جارٍ حفظ النتيجة...';
+    const result={name:currentPlayer,score:currentScore,date:new Date().toISOString(),dateKey:todayKey(),weekKey:weekKey(),mode:currentMode,correctCount,questionsAnswered,xp,bestStreak:bestStreakThisGame,lifelinesUsed:Object.values(lifelines).filter(Boolean).length};
+    const ok=await saveResultCloud(result);
+    pendingSave=false; $('saveStatus').textContent=ok?'✅ تم حفظ النتيجة سحابياً.':'📴 تم حفظها محلياً وستتم مزامنتها عند عودة الاتصال.';
+    isProcessing=false;
+}
+function getPending(){try{return JSON.parse(localStorage.getItem(CONFIG.storage.pending))||[];}catch{return[];}}
+function setPending(v){localStorage.setItem(CONFIG.storage.pending,JSON.stringify(v.slice(-30)));}
+async function flushPendingResults() {
+    const pending=getPending();
+    if(!pending.length) return true;
+    const remain=[];
+    try {
+        for(const item of pending){
+            const r=await fetch(CONFIG.firebaseLeaderboard,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(item)});
+            if(!r.ok) remain.push(item);
+        }
+        setPending(remain); return remain.length===0;
+    } catch { return false; }
+}
+async function saveResultCloud(result) {
+    const queue=getPending(); queue.push(result); setPending(queue);
+    return flushPendingResults();
+}
+
+async function renderLeaderboard() {
+    const list=$('leaderboardList'); list.innerHTML='';
+    const loading=document.createElement('li'); loading.className='empty'; loading.textContent='⏳ جارٍ جلب النتائج...'; list.appendChild(loading);
+    try {
+        const res=await fetch(CONFIG.firebaseLeaderboard,{cache:'no-store'}); if(!res.ok) throw new Error('leaderboard-fetch');
+        const data=(await res.json())||{}; const rows=Object.values(data).filter(x=>x && x.name);
+        const map={};
+        rows.forEach(r=>{const key=normalizeText(r.name); if(!map[key]) map[key]={name:r.name,best:0,total:0,today:0}; map[key].best=Math.max(map[key].best,Number(r.score)||0); map[key].total+=(Number(r.score)||0); if(r.dateKey===todayKey())map[key].today+=(Number(r.score)||0);});
+        let arr=Object.values(map);
+        if(activeBoard==='best') arr.sort((a,b)=>b.best-a.best); else if(activeBoard==='today') arr=arr.filter(x=>x.today>0).sort((a,b)=>b.today-a.today); else arr.sort((a,b)=>b.total-a.total);
+        arr=arr.slice(0,20); list.innerHTML='';
+        if(!arr.length){const e=document.createElement('li');e.className='empty';e.textContent='لا توجد نتائج مسجلة بعد.';list.appendChild(e);return;}
+        arr.forEach((p,i)=>{const li=document.createElement('li');li.className='board-item';const rank=document.createElement('div');rank.className='rank';rank.textContent=i<3?['🥇','🥈','🥉'][i]:'#'+(i+1);const name=document.createElement('div');name.className='board-name';name.textContent=p.name;const score=document.createElement('div');score.className='board-score';score.textContent=formatScore(activeBoard==='best'?p.best:(activeBoard==='today'?p.today:p.total))+' حسنة';li.append(rank,name,score);list.appendChild(li);});
+    } catch { list.innerHTML=''; const e=document.createElement('li'); e.className='empty'; e.innerHTML='تعذر الاتصال بالمتصدرين حالياً.<br><span class="small">ستبقى نتائجك محفوظة محلياً.</span>'; list.appendChild(e); }
+}
+
+function shareText(){return `🏆 حصلت على ${formatScore(currentScore)} حسنة في لعبة «من سيربح المليون حسنة»! ${currentMode==='daily'?'🔥 في تحدي اليوم! ':''}هل تستطيع تحطيم نتيجتي؟\n${location.href}`;}
+function shareWhatsApp(){window.open('https://api.whatsapp.com/send?text='+encodeURIComponent(shareText()),'_blank','noopener,noreferrer');}
+function shareFacebook(){window.open('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href)+'&quote='+encodeURIComponent(shareText()),'_blank','noopener,noreferrer');}
+
+function celebrate(){ const layer=$('confettiLayer'); layer.style.display='block'; layer.innerHTML=''; const colors=['#d4af37','#22c55e','#38bdf8','#ef4444','#a78bfa','#f59e0b']; for(let i=0;i<90;i++){const el=document.createElement('div');el.className='confetti';el.style.left=Math.random()*100+'vw';el.style.background=colors[Math.floor(Math.random()*colors.length)];el.style.animationDuration=(2+Math.random()*3)+'s';el.style.animationDelay=(Math.random()*1.8)+'s';layer.appendChild(el);} setTimeout(()=>{layer.style.display='none';},6500); sound('win'); }
+function showToast(msg){ const t=$('toast'); t.textContent=msg; t.classList.add('show'); clearTimeout(toastTimer); toastTimer=setTimeout(()=>t.classList.remove('show'),3200); }
+
+function sound(type){ if(!soundEnabled) return; try { const ctx=new (window.AudioContext||window.webkitAudioContext)(); const now=ctx.currentTime; const osc=ctx.createOscillator(); const gain=ctx.createGain(); osc.connect(gain); gain.connect(ctx.destination); const presets={start:[523,659],select:[300],correct:[660,880],wrong:[220,160],hint:[520,740],click:[400],win:[523,659,784,1047]}; const seq=presets[type]||[440]; seq.forEach((f,i)=>{osc.frequency.setValueAtTime(f,now+i*.09)}); gain.gain.setValueAtTime(.0001,now); gain.gain.exponentialRampToValueAtTime(.08,now+.02); gain.gain.exponentialRampToValueAtTime(.0001,now+Math.max(.2,seq.length*.09+.12)); osc.start(now); osc.stop(now+Math.max(.25,seq.length*.09+.18)); setTimeout(()=>ctx.close(),700); } catch {} }
+
+function applyTheme(){ const light=localStorage.getItem(CONFIG.storage.theme)==='light'; document.body.classList.toggle('light',light); $('themeBtn').textContent=light?'🌙':'🌓'; }
+function toggleTheme(){const light=!document.body.classList.contains('light');localStorage.setItem(CONFIG.storage.theme,light?'light':'dark');applyTheme();}
+function toggleSound(){soundEnabled=!soundEnabled;localStorage.setItem(CONFIG.storage.sound,soundEnabled?'on':'off');$('soundBtn').textContent=soundEnabled?'🔊':'🔇';if(soundEnabled)sound('click');}
+
+$('authBtn').addEventListener('click',authPlayer);
+$('startClassicBtn').addEventListener('click',()=>startGame('classic'));
+$('startDailyBtn').addEventListener('click',()=>startGame('daily'));
+$('newGameBtn').addEventListener('click',()=>showModal('welcomeModal'));
+$('dailyTopBtn').addEventListener('click',()=>isProcessing?showToast('⏳ أكمل السؤال الحالي أولاً.'):startGame('daily'));
+$('leaderboardTopBtn').addEventListener('click',()=>{renderLeaderboard();showModal('leaderboardModal');});
+$('profileTopBtn').addEventListener('click',()=>{renderProfile();showModal('profileModal');});
+$('viewLeaderboardBtn').addEventListener('click',()=>{hideModal('resultsModal');renderLeaderboard();showModal('leaderboardModal');});
+$('playAgainBtn').addEventListener('click',()=>startGame(currentMode));
+$('shareWhatsAppBtn').addEventListener('click',shareWhatsApp); $('shareFacebookBtn').addEventListener('click',shareFacebook);
+$('logoutBtn').addEventListener('click',logout); $('profileLogoutBtn').addEventListener('click',logout);
+$('life5050').addEventListener('click',use50); $('lifeChange').addEventListener('click',useChange); $('lifeHint').addEventListener('click',useHint); $('lifeAudience').addEventListener('click',useAudience);
+$('themeBtn').addEventListener('click',toggleTheme); $('soundBtn').addEventListener('click',toggleSound);
+$('resumeBtn').addEventListener('click',()=>{const c=restoreCandidate(); if(c) resumeGame(c); else {hideModal('resumeModal'); startGame('classic');}});
+$('discardResumeBtn').addEventListener('click',()=>{clearLocalGame();hideModal('resumeModal');showModal('welcomeModal');});
+
+document.querySelectorAll('[data-close]').forEach(btn=>btn.addEventListener('click',()=>hideModal(btn.dataset.close)));
+document.querySelectorAll('[data-board]').forEach(btn=>btn.addEventListener('click',()=>{activeBoard=btn.dataset.board;document.querySelectorAll('[data-board]').forEach(b=>b.classList.toggle('active',b===btn));renderLeaderboard();}));
+
+document.addEventListener('keydown',e=>{
+    if(e.key==='Escape'){const visible=document.querySelector('.modal.show'); if(visible && visible.id!=='authModal') hideModal(visible.id); return;}
+    if(isProcessing) return;
+    const k=e.key.toLowerCase();
+    if(['1','2','3','4'].includes(k) && currentOptions.length) selectOption(Number(k)-1);
+    else if(k==='m')use50(); else if(k==='c')useChange(); else if(k==='h')useHint(); else if(k==='a')useAudience();
+});
+
+window.addEventListener('beforeunload',()=>{saveLocalGame();});
+document.addEventListener('visibilitychange',()=>{if(document.hidden)saveLocalGame();});
+
+async function boot(){
+    applyTheme(); $('soundBtn').textContent=soundEnabled?'🔊':'🔇'; updateHeader();
+    if(!currentPlayer){showModal('authModal');return;}
+    $('welcomeName').textContent=currentPlayer; hideModal('authModal');
+    const candidate=restoreCandidate();
+    if(candidate) showModal('resumeModal'); else {showModal('welcomeModal');updateMiniProfile();}
+    // Try flushing offline results silently.
+    if(getPending().length) flushPendingResults().catch(()=>{});
+}
+
+if('serviceWorker' in navigator && location.protocol.startsWith('http')) { navigator.serviceWorker.register('./sw.js').catch(()=>{}); }
+boot();
+</script>
+</body>
+</html>
